@@ -140,6 +140,16 @@ textarea:focus{border-color:var(--strong);outline:none}
 .checklist input{margin-top:5px;accent-color:var(--strong)}
 .done{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
 .score{font-size:40px;font-weight:700;font-variant-numeric:tabular-nums}
+.more{border:1px solid var(--line);border-radius:var(--r);padding:0 16px;font-size:15px}
+.more summary{cursor:pointer;font-weight:600;padding:12px 0;list-style-position:inside}
+.more[open]{padding-bottom:14px}
+.more[open] > *:not(summary){margin-top:10px}
+.more ul{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:4px}
+.src{font-size:13px;color:var(--muted)}
+.read [id]{scroll-margin-top:140px}
+.flash{outline:2px solid var(--strong);outline-offset:6px;border-radius:2px}
+.backbar{position:fixed;z-index:6;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.backbar .btn{box-shadow:0 2px 10px rgba(0,0,0,.18)}
 footer{color:var(--muted);font-size:12.5px;padding-block:20px 40px;border-top:1px solid var(--line)}
 </style>
 </head>
@@ -187,6 +197,7 @@ footer{color:var(--muted);font-size:12.5px;padding-block:20px 40px;border-top:1p
   </section>
 
   <section id="v-teooria" hidden>
+    <div class="backbar" id="backBar" hidden><button class="btn primary" id="backBtn" type="button">Tagasi küsimuse juurde</button></div>
     <div class="theory">
       <div class="tlist" id="tlist" role="group" aria-label="Teooriad"></div>
       <article class="read" id="tbody"></article>
@@ -226,20 +237,27 @@ const THEORY = [
 <tr><td>Olukorraspetsiifilised oskused</td><td>PID: märkamine, tõlgendamine, otsustamine. Need ühendavad teadmised tegeliku tegutsemisega.</td></tr>
 <tr><td>Sooritus</td><td>Õpetaja vaadeldav tegevus klassis: selgitamine, tagasiside, tunni planeerimine.</td></tr>
 </tbody></table></div>
-<h3>PID-oskused</h3>
+<h3 id="pid-oskused">PID-oskused</h3>
 <ul>
 <li><span class="tag-m">Märkamine (Perception).</span> Vastab küsimusele „mis toimub?“. Ainult tegevused ja sõnad, mida näed ja kuuled. Ei anna hinnangut ega otsi põhjust.</li>
 <li><span class="tag-t">Tõlgendamine (Interpretation).</span> Vastab küsimusele „mida see tähendab õppimise seisukohast?“. Tugineb teaduskirjandusele: kognitiivsetele, emotsionaalsetele ja motivatsioonilistele aspektidele, näiteks enesetõhusus, kognitiivne koormus, eelteadmiste puudumine.</li>
 <li><span class="tag-o">Otsustamine (Decision-making).</span> Sünnib märkamise ja tõlgenduse põhjal. Otsus lähtub sellest, millise takistuse või vajaduse õpetaja tõlgendusel tuvastas.</li>
 </ul>
 <p>Näide. Õpilane kirjutab „3 + 4 = 7 + 2 = 9“. Õpetaja <span class="tag-m">märkab</span> võrdusmärgi ekslikku kasutamist, <span class="tag-t">tõlgendab</span> seda võimaliku väärarusaamana ja <span class="tag-o">otsustab</span> selgitada, et võrdusmärgi mõlemal poolel peab olema sama väärtus.</p>
-<h3>Ahel õpitulemusteni</h3>
+<details class="more"><summary>Loe rohkem: märkamine või tõlgendus?</summary>
+<p>Kontrolli lauset ühe küsimusega: <b>kas seda saab videost või kõrvalt vaatajana oma silmaga näha?</b> Kui jah, on see märkamine. Kui lause räägib sellest, mida õpilane mõtleb, tunneb, teab või tahab, on see tõlgendus.</p>
+<ul><li>„Õpilane kustutas lahenduse ja kirjutas uue.“ Seda näeb, seega märkamine.</li>
+<li>„Õpilane ei ole oma lahenduses kindel.“ Kindlust ei näe, seega tõlgendus.</li>
+<li>„Õpilased on laisad.“ Ei kirjelda nähtavat ega tugine teooriale, seega hinnang.</li></ul>
+<p>Hea tõlgendus algab sõnadega „see võib viidata sellele, et…“ ja nimetab teooria. Hea otsus vastab tõlgenduses leitud põhjusele, mitte ainult nähtavale käitumisele.</p>
+<p class="src">Näited koostas Claude konspekti põhjal.</p></details>
+<h3 id="pid-ahel">Ahel õpitulemusteni</h3>
 <p>Teadmised ja hoiakud → olukorraspetsiifilised oskused → õpetamise kvaliteet → õppija taju → õpitulemused. Õppija taju tähendab, kuidas õpilane õpetamist kogeb. Tulemust mõjutab ka õpilaste osalemine (student mediation) ja kontekst.</p>
-<h3>Mida uuringud näitasid</h3>
+<h3 id="pid-uuringud">Mida uuringud näitasid</h3>
 <p>Ülevaade 20 uuringust: aine- ja ainedidaktiliste teadmiste otsene seos õpitulemustega oli sageli nõrk. Selgemad seosed tekkisid siis, kui vaadati, kuidas õpetaja teadmisi rakendab. Ühenduslülid olid PID-oskused ja õpetamise kvaliteet.</p>
 <h3>Viis põhimõtet õpetamise kvaliteedi arendamiseks</h3>
 <ol><li>PID-oskusi tuleb arendada teadlikult.</li><li>Professionaalne areng peab parandama õpetamise kvaliteeti.</li><li>Kool ja haridussüsteem peavad looma tingimused pädevuse rakendamiseks.</li><li>Õppija kogemus ja taju tuleb nähtavaks teha.</li><li>Õpetajakoolitus peab jõudma muutusteni õpetamiskäitumises.</li></ol>
-<h3>Tüüpvead juhtumi analüüsis</h3>
+<h3 id="pid-vead">Tüüpvead juhtumi analüüsis</h3>
 <p class="trap">„Õpilased ei taha töötada“ või „õpilased on väsinud“ ei ole märkamine. See on juba tõlgendus või hinnang.</p>
 <p class="trap">„See klass ongi alati passiivne“ tugineb varasemale kogemusele, mitte teaduspõhisele analüüsile.</p>
 <p class="trap">„Õpilastel puudub motivatsioon“ on liiga üldine, kui pole uuritud, mis tegevust tegelikult takistab.</p>
@@ -248,7 +266,7 @@ const THEORY = [
 `},
 {id:'klieme', title:`Kvaliteedi 3 dimensiooni`, html:`
 <div class="eyebrow">Klieme, Pauli ja Reusser (2009)</div>
-<h2>Õpetamise kvaliteedi kolm põhidimensiooni</h2>
+<h2 id="kl-tabel">Õpetamise kvaliteedi kolm põhidimensiooni</h2>
 <p>Raamistik põhineb Saksa ja Šveitsi matemaatikatundide uuringul. Kvaliteet kirjeldab, milliseid õppimisvõimalusi õpetaja oma tegevusega loob.</p>
 <div class="tbl"><table><thead><tr><th>Dimensioon</th><th>Sisu</th></tr></thead><tbody>
 <tr><td>Klassi juhtimine</td><td>Õppetöö on eesmärgipäraselt korraldatud, aeg on kasutatud õppimiseks, selged reeglid ja rutiinid vähendavad segajaid.</td></tr>
@@ -256,9 +274,9 @@ const THEORY = [
 <tr><td>Kognitiivne aktiveerimine</td><td>Mõtlemist nõudvad ülesanded, küsimused ja arutelud. Õpilased kasutavad eelteadmisi, selgitavad ja põhjendavad, loovad seoseid, võrdlevad lahendusviise.</td></tr>
 </tbody></table></div>
 <p>Klassi juhtimine ja õppijate toetamine on aineülesed. Kognitiivne aktiveerimine on tihedamalt seotud õppeaine sisu ja sellele omaste mõtteviisidega.</p>
-<h3>Klassi juhtimine ei ole vaikus</h3>
+<h3 id="kl-juhtimine">Klassi juhtimine ei ole vaikus</h3>
 <p>Hästi juhitud tunnis võivad õpilased arutleda ja üksteiselt küsida, kui tegevus on eesmärgipärane. Sujuv töökorraldus iseenesest ei taga, et õpilased mõistavad. Fauthi jt (2014) uuringus 1556 kolmanda klassi õpilasega ennustasid õpilaste hinnangud klassi juhtimisele nende hilisemaid õpitulemusi loodusõpetuses. Thanheiser ja Melhuish (2023): oluline on ka see, kuidas rutiine rakendatakse.</p>
-<h3>Mida tunnis teha (klassi juhtimine)</h3>
+<h3 id="kl-tunnis">Mida tunnis teha (klassi juhtimine)</h3>
 <ol>
 <li>Kujunda selged rutiinid: kuidas tööd alustatakse, tegevust vahetatakse, abi küsitakse, lahendusi jagatakse.</li>
 <li>Kasuta aega eesmärgipäraselt, et jääks aega ka mõttekäikude arutamiseks.</li>
@@ -266,7 +284,7 @@ const THEORY = [
 <li>Enne sekkumist püüa mõista põhjust: kas juhis oli ebaselge, kas on vaja tuge, kas takistab töökorraldus?</li>
 <li>Ära täida vaikust ise. Oota viieni või kümneni, siis lase pinginaabriga arutada.</li>
 </ol>
-<h3>Seos SRL-iga</h3>
+<h3 id="kl-srl">Seos SRL-iga</h3>
 <div class="tbl"><table><thead><tr><th>Dimensioon</th><th>Õpetaja teeb</th><th>Õppija õpib ise</th></tr></thead><tbody>
 <tr><td>Kognitiivne aktiveerimine</td><td>Mõtlemist nõudvad ülesanded, suunab põhjendama ja lahendusi kontrollima</td><td>Jälgib arusaamist, hindab strateegiaid, muudab neid</td></tr>
 <tr><td>Klassi juhtimine</td><td>Selge töökorraldus, eesmärgid, tegevuste järjestus</td><td>Kavandab tegevust, jälgib edenemist, kasutab aega</td></tr>
@@ -276,7 +294,7 @@ const THEORY = [
 `},
 {id:'praet', title:`Kognitiivne aktiveerimine`, html:`
 <div class="eyebrow">Praetorius jt (2018)</div>
-<h2>Kognitiivse aktiveerimise seitse aladimensiooni</h2>
+<h2 id="pr-tabel">Kognitiivse aktiveerimise seitse aladimensiooni</h2>
 <p>Kognitiivne aktiveerimine tähendab õppimisvõimalusi, mis suunavad õppijat sügavamalt mõtlema, seoseid looma ja oma arusaamu selgitama ja põhjendama. Oluline pole õige vastus, vaid mõistmine. Ülesanded peavad nõudma enamat kui meenutamist.</p>
 <div class="tbl"><table><thead><tr><th>Aladimensioon</th><th>Tähendus</th></tr></thead><tbody>
 <tr><td>1. Väljakutsuvad ülesanded</td><td>Õpilased võrdlevad, hindavad ja põhjendavad lahendusi.</td></tr>
@@ -287,9 +305,21 @@ const THEORY = [
 <tr><td>6. Sokraatiline õpetamine</td><td>Õpetaja suunab küsimustega ideid ja järeldusi uurima, andmata vastust ette.</td></tr>
 <tr><td>7. Metakognitsiooni toetamine</td><td>Õpilased teadvustavad ja hindavad oma lahendusstrateegiaid.</td></tr>
 </tbody></table></div>
-<h3>Sokraatiline või metakognitiivne küsimus</h3>
+<h3 id="pr-sokr">Sokraatiline või metakognitiivne küsimus</h3>
 <p><b>Sokraatiline</b> uurib arutluse sisu: „Mille põhjal sa seda järeldad?“ <b>Metakognitiivne</b> suunab vaatama enda mõtlemist ja õppimisviisi: „Millist strateegiat kasutasid ja kas see toimis?“</p>
-<h3>Aine sisu loeb</h3>
+<details class="more" id="pr-sokr-more"><summary>Loe rohkem: sokraatiline õpetamine</summary>
+<p>Nimi tuleb Vana-Kreeka filosoofilt Sokrateselt, kes ei õpetanud vastuseid ette, vaid küsis vestluskaaslaselt küsimusi seni, kuni too ise oma mõtte vastuolud või järeldused üles leidis.</p>
+<p>Kursuse definitsioon: õpetaja suunab küsimustega õpilast oma ideid ja nende järeldusi uurima, <b>andmata vastuseid kohe ette</b>. Küsimused uurivad arutluse sisu: miks see nii on, mille põhjal, kas see kehtib alati.</p>
+<p><b>Näide informaatikatunnist</b></p>
+<ul><li>Õpilane: „Tsükkel käib viis korda.“</li>
+<li>Õpetaja: „Mille põhjal sa seda järeldad?“</li>
+<li>Õpilane: „Seal on range(5).“</li>
+<li>Õpetaja: „Mis on esimene väärtus, mille i saab? Ja viimane?“</li>
+<li>Õpilane: „Null ja… neli. Ah, viis korda, aga mitte ühest viieni.“</li></ul>
+<p><b>Tüüpviga.</b> Suunav küsimus, milles on vastus juba sees („Kas see pole mitte nulliga algav?“), ei ole sokraatiline. Õpilane ei pea ise mõtlema, ta peab ainult nõustuma.</p>
+<p><b>Erinevus metakognitsioonist.</b> Sokraatiline küsimus uurib <i>teemat</i> („miks see kehtib?“). Metakognitiivne küsimus uurib õppija <i>enda mõtlemist ja strateegiat</i> („kuidas sa selleni jõudsid, mis aitas, mida teeksid teisiti?“).</p>
+<p class="src">Definitsioon kursuse materjalist. Taust ja näide Claude'ilt.</p></details>
+<h3 id="pr-aine">Aine sisu loeb</h3>
 <p>Hindamisel tuleb arvestada õpetatava aine sisuga. Seoste rohkusest ei piisa. Nähtavaks tuleb teha just need seosed, mis on mõiste mõistmiseks vältimatult vajalikud.</p>
 <h3>Mida tunnis teha</h3>
 <ol>
@@ -304,7 +334,7 @@ const THEORY = [
 `},
 {id:'icap', title:`ICAP`, html:`
 <div class="eyebrow">Chi ja Wylie (2014)</div>
-<h2>ICAP ja kognitiivne kaasatus</h2>
+<h2 id="ic-tabel">ICAP ja kognitiivne kaasatus</h2>
 <p>Kognitiivne kaasatus on õppija vaimne ja käitumuslik osalemine õppimises, mis võib olla eri sügavusega. Vaata, mida õppija materjaliga teeb ja millist mõtlemist tegevus nõuab.</p>
 <div class="tbl"><table><thead><tr><th>Tase</th><th>Õppija teeb</th><th>Näide</th><th>Protsess</th></tr></thead><tbody>
 <tr><td>Passiivne</td><td>Võtab infot vastu</td><td>Kuulab, vaatab videot</td><td>Salvestamine</td></tr>
@@ -313,12 +343,17 @@ const THEORY = [
 <tr><td>Interaktiivne</td><td>Arendab koos partneriga mõtteid edasi, mõlemad konstruktiivsed</td><td>Arutleb, küsib, täiendab kaaslast</td><td>Koosloome</td></tr>
 </tbody></table></div>
 <p>Eeldatav järjestus: <b>I &gt; C &gt; A &gt; P</b>. Nähtava käitumise põhjal ei saa täielikult teada, mis õppija peas toimub: vaikne kuulaja võib sügavalt mõtestada.</p>
-<h3>Tüüpvead</h3>
+<h3 id="ic-vead">Tüüpvead</h3>
 <p class="trap">Sõnasõnaline märkmete kopeerimine on aktiivne. Märkmed muutuvad konstruktiivseks, kui õppija lisab oma põhjendusi ja seoseid. Sama kehtib mõistekaardi kohta.</p>
 <p class="trap">Rühmatöö ei ole automaatselt interaktiivne. Mõlema panus peab olema sisuline ja ideid tuleb vastastikku edasi arendada. Kui üks selgitab ja teine ainult nõustub, tingimused ei täitu. Kordamööda ettekanded ka ei loe.</p>
 <p class="trap">Interaktiivne digikeskkond ei taga interaktiivset õppimist. Nuppude vajutamine ja vastusevariandi valimine võib jääda aktiivseks. AI-vestlus võib olla interaktiivne, kui mõtteid arendatakse sisuliselt edasi.</p>
 <p class="trap">Lühike nõustumine ei tõenda passiivsust ja ühine vastus ei tõenda konstruktiivsust. Ütle, mida andmed lubavad järeldada.</p>
-<h3>Näide: veebiallika usaldusväärsus</h3>
+<details class="more"><summary>Loe rohkem: konstruktiivne või interaktiivne?</summary>
+<p>Interaktiivne tase nõuab kahte asja korraga: <b>mõlemad osalejad on ise konstruktiivsed</b> ja <b>nad arendavad teineteise mõtteid edasi</b>. Kui üks selgitab ja teine kuulab, on kuulaja parimal juhul aktiivne või passiivne. Kui mõlemad selgitavad, aga ei reageeri teineteise mõtetele, on mõlemad konstruktiivsed, mitte interaktiivsed.</p>
+<p>Tunnused, mida juhtumis otsida: küsitakse kaaslaselt põhjendust, täiendatakse, vaieldakse vastu, jõutakse ideeni, mida kumbki üksi ei sõnastanud.</p>
+<p><b>Andmete piir.</b> Kui juhtumis on näha ainult kirjalik postitus, ei saa suulise arutelu kohta midagi väita. Õppejõu näidisvastus ütleb selle otse välja.</p>
+<p class="src">Kursuse materjali põhjal, sõnastus Claude'ilt.</p></details>
+<h3 id="ic-naide">Näide: veebiallika usaldusväärsus</h3>
 <ul>
 <li><b>P</b> Õpilane vaatab videot allikate usaldusväärsusest.</li>
 <li><b>A</b> Märgib tekstis usaldusväärsuse tunnused.</li>
@@ -329,20 +364,20 @@ const THEORY = [
 `},
 {id:'toetus', title:`Õppijate toetamine`, html:`
 <div class="eyebrow">Praetorius jt (2018), Ryan ja Deci (2000)</div>
-<h2>Õppijate toetamine ja kolm baasvajadust</h2>
+<h2 id="to-tabel">Õppijate toetamine ja kolm baasvajadust</h2>
 <p>Oma mõtete jagamine on õpilasele riskantne: pooliku lahenduse näitamine või eksimuse tunnistamine teeb ebakindluse nähtavaks. Kui õpilane kardab eksida, ta vaikib. Seepärast on toetav klassikliima tingimus, et mõtlemine nähtavaks saaks. Isemääramisteooria järgi on kolme vajaduse rahuldamine oluline autonoomse motivatsiooni ja heaolu jaoks.</p>
 <div class="tbl"><table><thead><tr><th>Vajadus</th><th>Õpetaja tegevused</th></tr></thead><tbody>
 <tr><td>Kompetentsus</td><td>Diferentseerimine, sobiv tempo, konstruktiivne suhtumine vigadesse, sisuline edasiviiv tagasiside</td></tr>
 <tr><td>Autonoomia</td><td>Huvitavus ja tähenduslikkus, liigse sooritus- ja võistlussurve vältimine, tähenduslikud valikud</td></tr>
 <tr><td>Seotus</td><td>Lugupidavad suhted õpetaja ja õpilaste vahel ning õpilaste endi vahel</td></tr>
 </tbody></table></div>
-<h3>Uuringud</h3>
+<h3 id="to-uuringud">Uuringud</h3>
 <ul>
 <li><b>Käfer jt (2019), veakultuur.</b> Positiivses kultuuris analüüsitakse vigu ja kasutatakse väärarusaamu õppimiseks. Negatiivses väldivad õpilased avalikke vigu ja õpetaja küsib ühe õige vastusega küsimusi. Indiviidi tasandil seostus hinnang veakultuurile motivatsiooni ja õpitulemustega, klassi tasandil eelkõige keskmise motivatsiooniga.</li>
 <li><b>Flunger jt (2022), autonoomia.</b> Sisemise motivatsiooniga seostusid valikud, frustratsiooni mõistmine ja huvi äratamine. Huvi äratamine seostus suurema pingutuse ja väiksema näilise osalemisega.</li>
 <li><b>Roorda jt (2011), 99 uuringut.</b> Õpetaja ja õpilase suhe on seotud eelkõige kaasatusega, aga ka tulemustega. Negatiivsete suhete mõju on tugevam nooremate puhul.</li>
 </ul>
-<h3>Mida tunnis teha</h3>
+<h3 id="to-tunnis">Mida tunnis teha</h3>
 <ol>
 <li>Tunnusta mõtlemist, mitte ainult õiget vastust: „Aitäh, et jagasid oma poolikut mõtet.“</li>
 <li>Anna võimalus viga parandada või uuesti alustada.</li>
@@ -356,20 +391,27 @@ const THEORY = [
 <div class="eyebrow">Enesereguleeritud õppimine</div>
 <h2>SRL ja ennastjuhtiv õppija</h2>
 <p>SRL on protsess, kus õppija seab eesmärke, kavandab ja jälgib õppimist ning hindab ja kohandab oma tegevust. Ennastjuhtiv õppija teab oma tugevusi ja nõrkusi. Ükski õpilane ei tule kooli seda kõike juba oskades: mida märkame, et nad veel ei oska, näitab, mida toetada.</p>
-<h3>Kolm faasi</h3>
+<h3 id="srl-faasid">Kolm faasi</h3>
 <p>Tsükkel <b>planeeri → jälgi → reflekteeri</b> toimib nii veerandi, tunni kui ka ühe ülesande tasandil.</p>
 <div class="tbl"><table><thead><tr><th>Faas</th><th>Sisu</th></tr></thead><tbody>
 <tr><td>Ettevalmistav</td><td>Läbimõtlemise faas, suunab planeerima. Õppija peab teadma struktuuri, eesmärki ja oodatavat tulemust ning tundma, et juhib protsessi.</td></tr>
 <tr><td>Sooritus</td><td>Õppija jälgib oma õpistrateegiat ja motivatsiooni.</td></tr>
 <tr><td>Refleksioon</td><td>Enesehindamine: protsess, tulemus ja enesetunne. Milline meetod aitas, mis ei töötanud, kui raske oli.</td></tr>
 </tbody></table></div>
-<h3>Ettevalmistava faasi komponendid</h3>
+<h3 id="srl-ettevalmistav">Ettevalmistava faasi komponendid</h3>
 <ul>
 <li><b>A. Tutvumine:</b> teema ja ülesehitus, eesmärk ja õpitulemus, oma hoiakute teadvustamine, varasema teadmise aktiveerimine.</li>
 <li><b>B.</b> Oma tegevuse ajaline ja strateegiline planeerimine.</li>
 <li><b>C.</b> Emotsioonidega tegelemine.</li>
 </ul>
-<h3>Digimaterjali näited</h3>
+<details class="more"><summary>Loe rohkem: kuidas SRL-i juhtumis kasutada</summary>
+<p>Küsi endalt, <b>millises faasis õppija hätta jäi</b>.</p>
+<ul><li><b>Ettevalmistav:</b> õppija ei tea, mida teha, milline on oodatav tulemus või kui palju aega on. Märk: „Mida me tegema peame?“</li>
+<li><b>Sooritus:</b> õppija tegutseb, aga ei jälgi, kas töö vastab kriteeriumidele, või ei kohanda strateegiat. Märk: pildid ilma selgituste ja allikateta.</li>
+<li><b>Refleksioon:</b> õppija ei hinda protsessi, tulemust ega enesetunnet. Märk: töö on valmis, aga õppija ei oska öelda, mis aitas.</li></ul>
+<p>Otsus toetab just seda faasi: ettevalmistavas faasis eesmärk ja kriteeriumid selgeks, soorituses enesekontroll, refleksioonis küsimused protsessi ja strateegiate kohta.</p>
+<p class="src">Anneli juhtumi näidisanalüüsi põhjal, kokkuvõte Claude'ilt.</p></details>
+<h3 id="srl-digi">Digimaterjali näited</h3>
 <ul>
 <li><b>Enesetestimine.</b> Branching Scenario: valikvastustes on tüüpvead ja vale vastuse puhul tuleb just sellele veale vastav tagasiside.</li>
 <li><b>Lahendamise strateegia.</b> Ära vaata lahenduskäiku enne, kui oled ise tegelenud. Muidu tekib illusioon, et kõik on arusaadav.</li>
@@ -389,13 +431,13 @@ const THEORY = [
 <li><b>ICAP</b> hindab, kui sügavalt õppija tegelikult osaleb.</li>
 <li><b>SRL</b> näitab, kas õppija saab ise planeerida, jälgida ja reflekteerida.</li>
 </ul>
-<h3>Retsept juhtumi jaoks</h3>
+<h3 id="se-retsept">Retsept juhtumi jaoks</h3>
 <ol>
 <li><span class="tag-m">Märkamine.</span> Vali juhtumist üks konkreetne fakt. Kopeeri pigem täpselt, mis juhtus, numbritega kui võimalik. Ära lisa põhjust ega hinnangut.</li>
 <li><span class="tag-t">Tõlgendamine.</span> „See võib viidata sellele, et…“ ja nimeta teooria: ICAP tase, aladimensioon, baasvajadus või SRL-i faas. Ütle ka, mida andmed <i>ei</i> luba järeldada.</li>
 <li><span class="tag-o">Otsustamine.</span> Konkreetne tegevus, mis lahendab tõlgenduses leitud põhjust. Mitte „mõelge aktiivsemalt“, mitte uus video ega lisatest.</li>
 </ol>
-<h3>Valede vastuste mustrid õppejõu harjutustes</h3>
+<h3 id="se-mustrid">Valede vastuste mustrid õppejõu harjutustes</h3>
 <p class="trap"><b>Märkamise</b> vale variant sisaldab juba tõlgendust, hinnangut või otsust.</p>
 <p class="trap"><b>Tõlgenduse</b> vale variant väidab rohkem, kui andmed lubavad, või süüdistab motivatsiooni ja kodust ettevalmistust.</p>
 <p class="trap"><b>Otsuse</b> vale variant on passiivne (video, lisatest, rohkem samu ülesandeid) või üldine üleskutse.</p>
@@ -421,11 +463,11 @@ const Q = [
 {id:'p9',topic:'pid',src:'kursus',quote:`Õpilastel puudub motivatsioon.`,q:`Mis see lause on?`,choices:PIDO,a:3,why:`Konspekti järgi liiga üldine, kui pole uuritud, mis tegevust tegelikult takistab.`},
 {id:'p10',topic:'pid',src:'kursus',quote:`Mitme õpilase töö on peatunud: osa vaatab aknast välja, osa naabri vihikusse.`,q:`Mis see lause on?`,choices:PIDO,a:0,why:`Konspekti juhtumi märkamine: mitme õpilase töö on peatunud.`},
 {id:'p11',topic:'pid',src:'kursus',q:`Õpilane lahendab võrrandit ja pärast õpetaja küsimust kustutab oma lahenduse ning kirjutab teise vastuse. Milline väide on märkamine?`,opts:[`Õpilane ei ole oma lahenduses kindel.`,`Õpilane ei mõista võrrandi teisendamise põhimõtet.`,`Õpilane vajab enne järgmist ülesannet täiendavat selgitust.`,`Õpilane kustutas esimese lahenduse ja kirjutas pärast õpetaja küsimust uue.`],a:3,why:`Ainult viimane kirjeldab nähtavat. Esimesed kaks on tõlgendused õpilase sisemaailma kohta, kolmas on otsus.`},
-{id:'p12',topic:'pid',src:'mix',q:`Õpilane liidab murrud: 3/5 + 1/5 = 4/10. Milline õpetaja mõte on kõige parem õppimist toetav tõlgendus?`,opts:[`Õpilane on tõenäoliselt olnud tunni ajal tähelepanematu ja tal puudub motivatsioon.`,`Õpilane ei oska murde piisavalt hästi, tuleb palju rohkem harjutada ülesandeid erinevate nimetajatega ning tervikutega.`,`Õpilane võib mõista harilikku murdu kahe eraldiseisva naturaalarvuna ega mõista veel murdu osa-tervik tähenduses.`,`Õpilane liitis 3 ja 1 ning 5 ja 5 eraldi ning kirjutas vastuseks 4/10.`],a:2,why:`C seob vea võimaliku väärarusaamaga. A on motivatsioonisüüdistus, B on juba otsus, D on märkamine.`},
-{id:'p13',topic:'pid',src:'kursus',q:`Millele peaks õpetaja tõlgendamisel tuginema?`,opts:[`Oma varasemale kogemusele selle klassiga`,`Teaduskirjandusele: õppimist mõjutavatele kognitiivsetele, emotsionaalsetele ja motivatsioonilistele aspektidele`,`Õpilaste hinnetele eelmisel perioodil`,`Kolleegide arvamusele klassi kohta`],a:1,why:`Näiteks enesetõhusus, kognitiivne koormus, eelteadmiste puudumine.`},
-{id:'p14',topic:'pid',src:'kursus',q:`Mida näitas 20 uuringu ülevaade matemaatikaõpetajate pädevusest?`,opts:[`Aineteadmised ennustavad õpitulemusi kõige paremini`,`Aine- ja ainedidaktiliste teadmiste otsene seos õpitulemustega oli sageli nõrk; ühenduslülid olid PID-oskused ja õpetamise kvaliteet`,`Õpetaja teadmistel pole õpitulemustega mingit seost`,`Õpitulemused sõltuvad ainult õpilaste motivatsioonist`],a:1,why:`Teadmised pole ebaolulised, aga nende mõju avaldub selle kaudu, kuidas neid rakendatakse.`},
-{id:'p15',topic:'pid',src:'kursus',q:`Mis on „õppija taju“ Blömeke ahelas?`,opts:[`Õpilase IQ`,`Kuidas õpilane õpetamist kogeb, näiteks kas selgitused on arusaadavad ja kas ta saab tuge`,`Õpetaja arvamus õpilasest`,`Õpilase hinne kontrolltöös`],a:1,why:`Ahel: teadmised ja hoiakud → olukorraspetsiifilised oskused → õpetamise kvaliteet → õppija taju → õpitulemused.`},
-{id:'p16',topic:'pid',src:'kursus',q:`Miks on korraldus „Kõik hakkavad nüüd kohe tööle!“ nõrk otsus?`,opts:[`See on liiga range`,`See muudab hetkeks käitumist, aga ei kõrvalda põhjust, miks töö peatus`,`Õpilased ei kuule seda`,`See võtab liiga palju aega`],a:1,why:`Otsus peab vastama tuvastatud probleemile.`},
+{id:'p12',topic:'pid',src:'mix',q:`Õpilane liidab murrud: 3/5 + 1/5 = 4/10. Milline õpetaja mõte on kõige parem õppimist toetav tõlgendus?`,opts:[`Õpilane on tõenäoliselt olnud tunni ajal tähelepanematu ja tal puudub motivatsioon.`,`Õpilane ei oska murde piisavalt hästi, tuleb palju rohkem harjutada ülesandeid erinevate nimetajatega ning tervikutega.`,`Õpilane võib mõista harilikku murdu kahe eraldiseisva naturaalarvuna ega mõista veel murdu osa-tervik tähenduses.`,`Õpilane liitis 3 ja 1 ning 5 ja 5 eraldi ning kirjutas vastuseks 4/10.`],a:2,why:`Õige variant seob vea võimaliku väärarusaamaga. Motivatsioonisüüdistus ei ole tõlgendus, „rohkem harjutada“ on juba otsus ja „liitis eraldi“ on märkamine.`},
+{id:'p13',topic:'pid',src:'kursus',q:`Millele peaks õpetaja tõlgendamisel tuginema?`,opts:[`Oma varasemale kogemusele just selle klassiga`,`Teaduskirjandusele õppimist mõjutavate tegurite kohta`,`Õpilaste hinnetele ja tulemustele eelmisel perioodil`,`Kolleegide kogemusele ja arvamusele klassi kohta`],a:1,why:`Näiteks enesetõhusus, kognitiivne koormus, eelteadmiste puudumine.`},
+{id:'p14',topic:'pid',src:'kursus',q:`Mida näitas 20 uuringu ülevaade matemaatikaõpetajate pädevusest?`,opts:[`Aineteadmised ennustasid õpitulemusi selgelt kõige paremini`,`Teadmiste otsene seos oli nõrk, ühenduslülid olid PID ja kvaliteet`,`Õpetaja teadmistel ei olnud õpitulemustega mingit seost`,`Õpitulemusi ennustas eelkõige õpilaste kodune taust`],a:1,why:`Teadmised pole ebaolulised, aga nende mõju avaldub selle kaudu, kuidas neid rakendatakse.`},
+{id:'p15',topic:'pid',src:'kursus',q:`Mis on „õppija taju“ Blömeke ahelas?`,opts:[`Õpilase üldine võimekus, mida mõõdetakse testiga`,`Kuidas õpilane õpetamist kogeb, kas selgitused on arusaadavad`,`Õpetaja arvamus selle kohta, kui hästi õpilane aru sai`,`Õpilase tulemus tunnikontrollis pärast teema lõppu`],a:1,why:`Ahel: teadmised ja hoiakud → olukorraspetsiifilised oskused → õpetamise kvaliteet → õppija taju → õpitulemused.`},
+{id:'p16',topic:'pid',src:'kursus',q:`Miks on korraldus „Kõik hakkavad nüüd kohe tööle!“ nõrk otsus?`,opts:[`See on õpilaste suhtes liiga range ja rikub suhteid`,`See muudab hetkeks käitumist, aga ei kõrvalda põhjust`,`Õpilased ei kuule seda, kui klassis on mürarikas`,`See võtab tunnist liiga palju väärtuslikku aega`],a:1,why:`Otsus peab vastama tuvastatud probleemile.`},
 // Klieme
 {id:'k1',topic:'klieme',src:'kursus',quote:`Tunni alguses on tahvlil kirjas, millised keskkonnad avada, mida teha ja millal töö esitada.`,q:`Milline dimensioon?`,choices:KLO,a:0,why:`Konspekti näide digipädevuste tunnist: selge töökorraldus.`},
 {id:'k2',topic:'klieme',src:'kursus',quote:`Õpilased võrdlevad kahe veebiallika usaldusväärsust ja põhjendavad oma hinnangut.`,q:`Milline dimensioon?`,choices:KLO,a:2,why:`Võrdlemine ja põhjendamine.`},
@@ -436,7 +478,7 @@ const Q = [
 {id:'k7',topic:'klieme',src:'claude',quote:`Õpilane saab valida, kas teeb ülesande paaris või üksi.`,q:`Milline dimensioon?`,choices:KLO,a:1,why:`Tähenduslik valik toetab autonoomiavajadust.`},
 {id:'k8',topic:'klieme',src:'kursus',quote:`Õpetaja jälgib kogu klassi, mitte ainult neid, kes abi küsivad, ja märkab, kus töö takerdub.`,q:`Milline dimensioon?`,choices:KLO,a:0,why:`Teadlikkus klassis toimuvast.`},
 {id:'k9',topic:'klieme',src:'kursus',q:`Milline dimensioon on kõige tihedamalt seotud õppeaine sisu ja sellele omaste mõtteviisidega?`,opts:KLO,a:2,why:`Klassi juhtimine ja toetamine on aineülesed.`},
-{id:'k10',topic:'klieme',src:'kursus',q:`Kas hästi juhitud tund tähendab, et klassis on vaikus?`,opts:[`Jah, vaikus näitab korda`,`Ei, õpilased võivad arutleda ja üksteiselt küsida, kui tegevus on eesmärgipärane`,`Jah, muidu ei saa keskenduda`,`Sõltub ainest`],a:1,why:`Klassi juhtimine loob õppimiseks tingimused, mitte vaikuse.`},
+{id:'k10',topic:'klieme',src:'kursus',q:`Kas hästi juhitud tund tähendab, et klassis on vaikus?`,opts:[`Jah, sest vaikus näitab, et õpilased keskenduvad tööle`,`Ei, õpilased võivad arutleda, kui tegevus on eesmärgipärane`,`Jah, sest muidu ei saa õpetaja kogu klassi jälgida`,`Sõltub ainest, reaalainetes peab tunnis olema vaikne`],a:1,why:`Klassi juhtimine loob õppimiseks tingimused, mitte vaikuse.`},
 {id:'k11',topic:'klieme',src:'kursus',q:`Kelle raamistik on õpetamise kvaliteedi kolm põhidimensiooni?`,opts:[`Chi ja Wylie (2014)`,`Klieme, Pauli ja Reusser (2009)`,`Blömeke jt (2015)`,`Ryan ja Deci (2000)`],a:1,why:`Põhineb Saksa ja Šveitsi matemaatikatundide uuringul.`},
 // Praetorius
 {id:'r1',topic:'praet',src:'claude',quote:`Õpetaja küsib „Mille põhjal sa seda järeldad?“ ega ütle vastust ette.`,q:`Milline aladimensioon?`,opts:[`Sokraatiline õpetamine`,`Metakognitsiooni toetamine`,`Eelteadmiste aktiveerimine`,`Väljakutsuvad ülesanded`],a:0,why:`Uurib arutluse sisu küsimustega.`},
@@ -447,7 +489,7 @@ const Q = [
 {id:'r6',topic:'praet',src:'claude',quote:`Paarilised kaaluvad teineteise mõttekäike ja kujundavad ühise seisukoha.`,q:`Milline aladimensioon?`,opts:[`Arutlev ja koostöiselt teadmisi kujundav õppimine`,`Sokraatiline õpetamine`,`Väljakutsuvad ülesanded`,`Metakognitsiooni toetamine`],a:0,why:`Arusaam areneb teiste mõttekäikudega suhestudes.`},
 {id:'r7',topic:'praet',src:'claude',quote:`Õpilased võrdlevad kahte lahendusviisi ja hindavad, kumb sobib paremini.`,q:`Milline aladimensioon?`,opts:[`Väljakutsuvad ülesanded ja küsimused`,`Eelteadmiste aktiveerimine`,`Piirdumine valmisvõtetega`,`Metakognitsiooni toetamine`],a:0,why:`Võrdlemine, hindamine ja põhjendamine.`},
 {id:'r8',topic:'praet',src:'kursus',q:`Mitu aladimensiooni on kognitiivsel aktiveerimisel Praetoriuse jt (2018) käsitluses?`,opts:[`3`,`5`,`7`,`9`],a:2,why:`Seitse, neist üks on negatiivne indikaator.`},
-{id:'r9',topic:'praet',src:'kursus',q:`Mida tuleb kognitiivse aktiveerimise hindamisel arvestada lisaks üldistele tunnustele?`,opts:[`Et seoseid oleks tunnis võimalikult palju`,`Aine sisu: nähtavaks teha just need seosed, mis on mõiste mõistmiseks vajalikud`,`Õpilaste arvu klassis`,`Tunni pikkust`],a:1,why:`Seoste rohkusest ei piisa.`},
+{id:'r9',topic:'praet',src:'kursus',q:`Mida tuleb kognitiivse aktiveerimise hindamisel arvestada lisaks üldistele tunnustele?`,opts:[`Et seoseid oleks tunnis võimalikult palju`,`Aine sisu ja mõiste mõistmiseks vajalikud seosed`,`Et klassis oleks rühmatööks piisavalt õpilasi`,`Et tunni pikkus oleks vähemalt 45 minutit`],a:1,why:`Seoste rohkusest ei piisa.`},
 // Sokraatiline vs metakognitiivne
 {id:'s1',topic:'praet',src:'claude',quote:`„Miks sa arvad, et see kehtib ka negatiivsete arvude korral?“`,q:`Mis tüüpi küsimus?`,choices:SMO,a:0,why:`Uurib arutluse sisu.`},
 {id:'s2',topic:'praet',src:'kursus',quote:`„Kuidas sain aru, et see strateegia sobib?“`,q:`Mis tüüpi küsimus?`,choices:SMO,a:1,why:`Suunab vaatama enda mõtlemist.`},
@@ -463,27 +505,74 @@ const Q = [
 {id:'i6',topic:'icap',src:'kursus',quote:`Vastab suuliselt faktiküsimusele, meenutades materjalis olevat.`,q:`Milline ICAP tase?`,choices:ICO,a:1,why:`Kordab olemasolevat infot.`},
 {id:'i7',topic:'icap',src:'kursus',quote:`Teeb märkmeid ja lisab oma järeldusi ja seoseid.`,q:`Milline ICAP tase?`,choices:ICO,a:2,why:`Sõnasõnaline kopeerimine oleks aktiivne, oma järeldused teevad konstruktiivseks.`},
 {id:'i8',topic:'icap',src:'kursus',quote:`Vajutab Amplifys valikvastuse nuppu.`,q:`Milline ICAP tase?`,choices:ICO,a:1,why:`Interaktiivne digikeskkond ei taga interaktiivset õppimist.`},
-{id:'i9',topic:'icap',src:'kursus',q:`Üks õpilane selgitab, teine kirjutab vastuseks „Mul sama“. Mis on õige?`,opts:[`Interaktiivne, sest nad töötasid koos`,`Ei täida interaktiivse kaasatuse tingimusi, sest ideid ei arendatud vastastikku`,`Passiivne, sest nõustuja ei töötle infot`,`Mõlemad olid konstruktiivsed`],a:1,why:`Lühike nõustumine ei tõenda ka passiivsust: kaaslase mõtet võidi mõtestatult analüüsida.`},
+{id:'i9',topic:'icap',src:'kursus',q:`Üks õpilane selgitab, teine kirjutab vastuseks „Mul sama“. Mis on õige?`,opts:[`Interaktiivne, sest nad töötasid ülesande kallal koos`,`Ei ole interaktiivne, sest ideid ei arendatud vastastikku`,`Passiivne, sest nõustuja ei töötle kaaslase infot üldse`,`Konstruktiivne mõlemale, sest nad esitasid ühise vastuse`],a:1,why:`Lühike nõustumine ei tõenda ka passiivsust: kaaslase mõtet võidi mõtestatult analüüsida.`},
 {id:'i10',topic:'icap',src:'kursus',q:`Mis on ICAP-i järgi sügavama õppimise eeldatav järjestus?`,opts:[`P > A > C > I`,`I > C > A > P`,`C > I > A > P`,`A > C > I > P`],a:1,why:`Interaktiivne on eeldatavalt kõige sügavam.`},
 {id:'i11',topic:'icap',src:'kursus',q:`Milline protsess iseloomustab konstruktiivset taset?`,opts:[`Salvestamine`,`Lõimimine`,`Tuletamine`,`Koosloome`],a:2,why:`P salvestamine, A lõimimine, C tuletamine, I koosloome.`},
-{id:'i12',topic:'icap',src:'kursus',q:`Mille poolest erinevad kognitiivne aktiveerimine ja ICAP?`,opts:[`Need on sama asi`,`Kognitiivne aktiveerimine kirjeldab õpetaja loodud mõtlemisvõimalusi, ICAP seda, kuidas õppijad neis osalevad`,`ICAP kirjeldab õpetajat, kognitiivne aktiveerimine õpilast`,`ICAP on ainult rühmatöö jaoks`],a:1,why:`Konspekti seos kahe teooria vahel.`},
-{id:'i13',topic:'icap',src:'kursus',q:`Kas vaikselt kuulav õpilane on alati passiivne?`,opts:[`Jah, sest midagi pole näha`,`Ei, nähtava käitumise põhjal ei saa täielikult teada; ta võib materjali sügavalt mõtestada`,`Jah, kui ta ei kirjuta`,`Ei, kuulamine on alati konstruktiivne`],a:1,why:`Seepärast tuleb kavandada tegevusi, mis toovad mõtlemise nähtavale.`},
+{id:'i12',topic:'icap',src:'kursus',q:`Mille poolest erinevad kognitiivne aktiveerimine ja ICAP?`,opts:[`Need kirjeldavad sama nähtust, ainult eri sõnade ja mõistetega`,`KA kirjeldab õpetaja loodud võimalusi, ICAP õppijate osalemist`,`ICAP kirjeldab õpetaja tegevust, kognitiivne aktiveerimine õpilase oma`,`ICAP kehtib ainult rühmatöö, kognitiivne aktiveerimine üksiktöö kohta`],a:1,why:`Konspekti seos kahe teooria vahel.`},
+{id:'i13',topic:'icap',src:'kursus',q:`Kas vaikselt kuulav õpilane on alati passiivne?`,opts:[`Jah, sest tema tegevusest pole kõrvalt midagi näha`,`Ei, nähtava käitumise põhjal ei saa seda täielikult teada`,`Jah, kui ta kuulamise ajal märkmeid ei tee`,`Ei, sest vaikne kuulamine on alati konstruktiivne`],a:1,why:`Seepärast tuleb kavandada tegevusi, mis toovad mõtlemise nähtavale.`},
 // Toetamine
-{id:'t1',topic:'toetus',src:'kursus',q:`Milline teooria on kolme baasvajaduse taga?`,opts:[`ICAP`,`Isemääramisteooria (Ryan ja Deci, 2000)`,`Blömeke mudel`,`SRL`],a:1,why:`Kompetentsus, autonoomia, seotus.`},
+{id:'t1',topic:'toetus',src:'kursus',q:`Milline teooria on kolme baasvajaduse taga?`,opts:[`ICAP (Chi ja Wylie, 2014)`,`Isemääramisteooria (Ryan ja Deci, 2000)`,`Õpetaja kompetentsus (Blömeke jt, 2015)`,`Kvaliteedi dimensioonid (Klieme jt, 2009)`],a:1,why:`Kompetentsus, autonoomia, seotus.`},
 {id:'t2',topic:'toetus',src:'kursus',quote:`Õpilastele pakutakse tähenduslikke valikuid ja välditakse liigset võistlussurvet.`,q:`Millist vajadust see toetab?`,choices:[`Kompetentsus`,`Autonoomia`,`Seotus`],a:1,why:`Autonoomia: huvitavus, surve vältimine, valikud.`},
 {id:'t3',topic:'toetus',src:'kursus',quote:`Õpetaja annab sisulist edasiviivat tagasisidet ja valib sobiva tempo.`,q:`Millist vajadust see toetab?`,choices:[`Kompetentsus`,`Autonoomia`,`Seotus`],a:0,why:`Kompetentsus: diferentseerimine, tempo, vead, tagasiside.`},
-{id:'t4',topic:'toetus',src:'kursus',q:`Mida näitas Käferi jt (2019) uuring klassi kui terviku tasandil?`,opts:[`Ühine positiivne arusaam vigadest mõjutas eelkõige keskmist motivatsiooni, mitte õpitulemusi`,`Vigadel pole mõju`,`Positiivne veakultuur tõstis eelkõige hindeid`,`Vigade arutamine vähendas motivatsiooni`],a:0,why:`Indiviidi tasandil oli seos nii motivatsiooni kui ka õpitulemustega.`},
-{id:'t5',topic:'toetus',src:'kursus',q:`Mis seostus Flungeri jt (2022) uuringus suurema pingutuse ja väiksema näilise osalemisega?`,opts:[`Hinded`,`Huvi äratamine`,`Kodutööd`,`Range kord`],a:1,why:`Tähenduslikkuse selgitamine seostus pigem sellega, kui kasulikuks õpitavat peeti.`},
-{id:'t6',topic:'toetus',src:'kursus',q:`Roorda jt (2011) metaanalüüs 99 uuringust: õpetaja ja õpilase suhe on seotud eelkõige…`,opts:[`õpilaste kaasatusega`,`õpilaste IQ-ga`,`koolimaja suurusega`,`ainult hinnetega`],a:0,why:`Ka õpitulemustega. Negatiivse suhte mõju on tugevam nooremate puhul.`},
-{id:'t7',topic:'toetus',src:'kursus',quote:`„Siin on lahendus, mis tundus mõistlik, aga viis vale vastuseni. Kus viga tekib?“`,q:`Mida see toetab?`,opts:[`Positiivset veakultuuri: viga on uurimise objekt, autor ei ole esil`,`Võistlust`,`Klassi juhtimist`,`Ainult kompetentsust hinnete kaudu`],a:0,why:`Konspekt: too välja viga, mitte autor.`},
+{id:'t4',topic:'toetus',src:'kursus',q:`Mida näitas Käferi jt (2019) uuring klassi kui terviku tasandil?`,opts:[`Ühine arusaam vigadest mõjutas eelkõige keskmist motivatsiooni`,`Ühine arusaam vigadest tõstis eelkõige klassi keskmisi hindeid`,`Vigade avalik arutamine vähendas klassi keskmist motivatsiooni`,`Veakultuur ei olnud klassi tasandil seotud millegagi`],a:0,why:`Indiviidi tasandil oli seos nii motivatsiooni kui ka õpitulemustega.`},
+{id:'t5',topic:'toetus',src:'kursus',q:`Mis seostus Flungeri jt (2022) uuringus suurema pingutuse ja väiksema näilise osalemisega?`,opts:[`Valikute pakkumine`,`Huvi äratamine`,`Tähenduslikkuse selgitamine`,`Frustratsiooni mõistmine`],a:1,why:`Tähenduslikkuse selgitamine seostus pigem sellega, kui kasulikuks õpitavat peeti.`},
+{id:'t6',topic:'toetus',src:'kursus',q:`Roorda jt (2011) metaanalüüs 99 uuringust: õpetaja ja õpilase suhe on seotud eelkõige…`,opts:[`õpilaste kaasatusega`,`õpilaste kodutööde mahuga`,`klassi suurusega`,`õpetaja tööstaažiga`],a:0,why:`Ka õpitulemustega. Negatiivse suhte mõju on tugevam nooremate puhul.`},
+{id:'t7',topic:'toetus',src:'kursus',quote:`„Siin on lahendus, mis tundus mõistlik, aga viis vale vastuseni. Kus viga tekib?“`,q:`Mida see toetab?`,opts:[`Positiivset veakultuuri, sest viga on uurimise objekt`,`Klassi juhtimist, sest tund jätkub sujuvalt edasi`,`Sooritusmotivatsiooni, sest loeb ainult õige vastus`,`Valmisvõtete harjutamist, sest lahendus on ette antud`],a:0,why:`Konspekt: too välja viga, mitte autor.`},
 // SRL
-{id:'l1',topic:'srl',src:'kursus',q:`Millised on SRL-i kolm faasi?`,opts:[`Märkamine, tõlgendamine, otsustamine`,`Ettevalmistav, sooritus, refleksioon`,`Passiivne, aktiivne, konstruktiivne`,`Planeerimine, hindamine, tagasiside`],a:1,why:`Planeeri → jälgi → reflekteeri.`},
+{id:'l1',topic:'srl',src:'kursus',q:`Millised on SRL-i kolm faasi?`,opts:[`Märkamine, tõlgendamine, otsustamine`,`Ettevalmistav, sooritus, refleksioon`,`Eesmärgistamine, harjutamine, hindamine`,`Planeerimine, tagasiside, kordamine`],a:1,why:`Planeeri → jälgi → reflekteeri.`},
 {id:'l2',topic:'srl',src:'kursus',q:`Mis EI kuulu ettevalmistava faasi komponentide hulka?`,opts:[`Eesmärgi ja õpitulemusega tutvumine`,`Varasema teadmise aktiveerimine`,`Emotsioonidega tegelemine`,`Õpitulemuse saavutamise hindamine`],a:3,why:`Tulemuse hindamine on refleksioonifaas.`},
-{id:'l3',topic:'srl',src:'kursus',q:`Mida õppija refleksioonifaasis hindab?`,opts:[`Ainult hinnet`,`Protsessi, tulemust ja enesetunnet`,`Ainult õpetaja tööd`,`Kaaslaste tööd`],a:1,why:`Näiteks milline strateegia aitas ja kui raske oli.`},
-{id:'l4',topic:'srl',src:'kursus',q:`Kas kvaliteetne õpetamine tagab enesereguleeritud õppimise?`,opts:[`Jah, alati`,`Ei, see loob tingimused, aga ei taga`,`Ainult klassi juhtimine tagab`,`Ainult gümnaasiumis`],a:1,why:`Kvaliteet kirjeldab õpetajat, SRL õppijat.`},
-{id:'l5',topic:'srl',src:'kursus',q:`Miks soovitatakse mitte vaadata lahenduskäiku enne, kui ise oled ülesandega tegelenud?`,opts:[`Et säästa aega`,`Et vältida illusiooni, et kõik on arusaadav`,`Et õpetaja ei näeks`,`Lahenduskäik on alati vale`],a:1,why:`Lahendamise strateegia digimaterjalis.`},
-{id:'l6',topic:'srl',src:'kursus',q:`Mis on H5P Branching Scenario eelis enesetestimisel?`,opts:[`See on ilus`,`Vale vastuse puhul antakse just sellele veale vastav tagasiside`,`Õpetaja ei pea midagi tegema`,`See annab automaatselt hinde`],a:1,why:`Aitab märgata väärarusaama ja seda parandada.`},
-{id:'l7',topic:'srl',src:'kursus',q:`Millisel tasandil toimib tsükkel planeeri → jälgi → reflekteeri?`,opts:[`Ainult veerandi tasandil`,`Ainult tunni tasandil`,`Nii veerandi, tunni kui ka ühe ülesande tasandil`,`Ainult kodutöös`],a:2,why:`Konspekti skeem.`},
+{id:'l3',topic:'srl',src:'kursus',q:`Mida õppija refleksioonifaasis hindab?`,opts:[`Ainult saadud hinnet ja punktisummat`,`Protsessi, tulemust ja enesetunnet`,`Õpetaja selgituste arusaadavust`,`Kaaslaste tööde tugevusi ja nõrkusi`],a:1,why:`Näiteks milline strateegia aitas ja kui raske oli.`},
+{id:'l4',topic:'srl',src:'kursus',q:`Kas kvaliteetne õpetamine tagab enesereguleeritud õppimise?`,opts:[`Jah, kui õpetaja kasutab kõiki kolme dimensiooni`,`Ei, see loob tingimused, aga ei taga`,`Jah, kui klassi juhtimine on hästi korraldatud`,`Ainult vanemate õpilaste puhul, nooremad ei oska`],a:1,why:`Kvaliteet kirjeldab õpetajat, SRL õppijat.`},
+{id:'l5',topic:'srl',src:'kursus',q:`Miks soovitatakse mitte vaadata lahenduskäiku enne, kui ise oled ülesandega tegelenud?`,opts:[`Et ülesande lahendamine võtaks vähem aega`,`Et vältida illusiooni, et kõik on arusaadav`,`Et õpetaja saaks hiljem vead üles märkida`,`Sest lahenduskäigud sisaldavad sageli vigu`],a:1,why:`Lahendamise strateegia digimaterjalis.`},
+{id:'l6',topic:'srl',src:'kursus',q:`Mis on H5P Branching Scenario eelis enesetestimisel?`,opts:[`See näitab kohe, mitu punkti õppija kokku sai`,`Vale vastuse korral tuleb sellele veale vastav tagasiside`,`Õppija saab ise valida, millist ülesannet teha`,`Õpetaja näeb kõigi õppijate vastuseid kohe reaalajas`],a:1,why:`Aitab märgata väärarusaama ja seda parandada.`},
+{id:'l7',topic:'srl',src:'kursus',q:`Millisel tasandil toimib tsükkel planeeri → jälgi → reflekteeri?`,opts:[`Ainult veerandi ja kogu kursuse planeerimise tasandil`,`Ainult ühe tunni tasandil, mitte pikemalt`,`Nii veerandi, tunni kui ka ühe ülesande tasandil`,`Ainult iseseisva kodutöö tegemise tasandil`],a:2,why:`Konspekti skeem.`},
+// Lisaküsimused
+{id:'p17',topic:'pid',src:'claude',quote:`Kolm õpilast kuuest ei ole 15 minuti jooksul rühma tahvlile ühtegi postitust lisanud.`,q:`Mis see lause on?`,choices:PIDO,a:0,why:`Nähtav fakt koos arvude ja ajaga. Põhjust ei oletata.`},
+{id:'p18',topic:'pid',src:'claude',quote:`Rühma vaikimine võib viidata, et ülesande oodatav tulemus pole neile selge, mis raskendab ettevalmistavas faasis planeerimist.`,q:`Mis see lause on?`,choices:PIDO,a:1,why:`Mõtestab märgatut ja seob SRL-i ettevalmistava faasiga.`},
+{id:'p19',topic:'pid',src:'claude',quote:`Õpetaja peatab töö ja palub igal rühmal ühe lausega sõnastada, mis on nende töö eesmärk.`,q:`Mis see lause on?`,choices:PIDO,a:2,why:`Kirjeldab õpetaja järgmist sammu.`},
+{id:'p20',topic:'pid',src:'claude',quote:`Need õpilased on lihtsalt laisad ja ei viitsi mõelda.`,q:`Mis see lause on?`,choices:PIDO,a:3,why:`Hinnang õpilastele. Ei kirjelda nähtavat ega tugine teooriale.`},
+{id:'p21',topic:'pid',src:'claude',quote:`Õpilane kirjutas vastuseks 4/10 ega kasutanud ülesande juures olevat joonist.`,q:`Mis see lause on?`,choices:PIDO,a:0,why:`Kirjeldab ainult seda, mida töös näha on.`},
+{id:'p22',topic:'pid',src:'claude',quote:`Vastus võib viidata, et õpilasel puudub arusaam murrust kui osast tervikust, mis suurendab uue teema kognitiivset koormust.`,q:`Mis see lause on?`,choices:PIDO,a:1,why:`Seob vea eelteadmiste ja kognitiivse koormusega.`},
+{id:'p23',topic:'pid',src:'claude',quote:`Selles klassis on niikuinii nõrgad õpilased, nendega ei jõua kaugele.`,q:`Mis see lause on?`,choices:PIDO,a:3,why:`Üldistus varasema kogemuse põhjal, mitte analüüs.`},
+{id:'p24',topic:'pid',src:'claude',q:`Tõlgendus on: „Rühmal puudub selgus, milline on hea tulemus.“ Milline otsus sellest tuleneb?`,opts:[`Õpetaja näitab kahte näidistööd ja palub rühmal sõnastada, mille poolest parem töö on parem.`,`Õpetaja tuletab meelde, et tähtaeg on lähedal ja töö tuleb kiiresti valmis saada.`,`Õpetaja jagab rühmad ümber, et igas rühmas oleks vähemalt üks tugevam õpilane.`,`Õpetaja selgitab kogu klassile teema uuesti algusest peale ja põhjalikumalt.`],a:0,why:`Otsus vastab tõlgenduses leitud põhjusele: kvaliteedikriteeriumid saavad selgeks.`},
+{id:'p25',topic:'pid',src:'kursus',q:`Mida tähendavad Blömeke jt mudelis dispositsioonid?`,opts:[`Õpetaja teadmised ja afektiivsed omadused, nagu enesetõhusus, uskumused ja motivatsioon`,`Õpetaja vaadeldav tegevus klassis, nagu selgitamine, tagasiside ja tunni planeerimine`,`Olukorraspetsiifilised oskused märgata, tõlgendada ja otsustada tunnis toimuva põhjal`,`Õpilaste hinnang sellele, kuidas nad õpetamist ja õpetaja tuge tunnis kogevad`],a:0,why:`Dispositsioonid on kognitiivsed (CK, PK, PCK) ja afektiivsed.`},
+{id:'p26',topic:'pid',src:'kursus',q:`Milline on Blömeke ahela õige järjekord?`,opts:[`teadmised ja hoiakud → olukorraspetsiifilised oskused → õpetamise kvaliteet → õppija taju → õpitulemused`,`teadmised ja hoiakud → õpetamise kvaliteet → olukorraspetsiifilised oskused → õpitulemused → õppija taju`,`olukorraspetsiifilised oskused → teadmised ja hoiakud → õppija taju → õpetamise kvaliteet → õpitulemused`,`teadmised ja hoiakud → õppija taju → õpetamise kvaliteet → olukorraspetsiifilised oskused → õpitulemused`],a:0,why:`Teadmised mõjuvad õpitulemustele oskuste, kvaliteedi ja õppija taju kaudu.`},
+{id:'p27',topic:'pid',src:'kursus',q:`Mida tähendab lühend PCK?`,opts:[`Ainedidaktilised teadmised`,`Üldpedagoogilised teadmised`,`Aineteadmised`,`Olukorraspetsiifilised oskused`],a:0,why:`CK on aineteadmised, PK üldpedagoogilised, PCK ainedidaktilised teadmised.`},
+{id:'k12',topic:'klieme',src:'claude',quote:`Õpetaja kohandab ülesande raskust nii, et ebakindlam õpilane saab samm-sammult vihjed.`,q:`Milline dimensioon?`,choices:KLO,a:1,why:`Diferentseerimine ja tugi raskuste ületamisel.`},
+{id:'k13',topic:'klieme',src:'claude',quote:`Õpetaja palub õpilastel põhjendada, miks just see lahendusviis töötab ja teine mitte.`,q:`Milline dimensioon?`,choices:KLO,a:2,why:`Põhjendamine ja lahendusviiside võrdlemine.`},
+{id:'k14',topic:'klieme',src:'kursus',quote:`Õpetaja ootab pärast küsimust kümneni lugedes ja laseb siis enne vastamist pinginaabriga arutada.`,q:`Milline dimensioon?`,choices:KLO,a:0,why:`Konspektis on see klassi juhtimise soovituste all: ära täida vaikust ise.`},
+{id:'k15',topic:'klieme',src:'kursus',q:`Mida näitas Fauthi jt (2014) uuring 1556 kolmanda klassi õpilasega?`,opts:[`Õpilaste hinnangud klassi juhtimisele ennustasid nende hilisemaid õpitulemusi loodusõpetuses`,`Õpilaste hinnangud kognitiivsele aktiveerimisele ennustasid nende hilisemaid matemaatikahindeid`,`Klassi juhtimine ei olnud seotud ühegi õpitulemusega, kui arvestati õpilaste eelteadmisi`,`Õpilaste hinnangud õpetaja toele olid seotud ainult nende heaolu, mitte teadmistega`],a:0,why:`Konspekti näide klassi juhtimise olulisusest.`},
+{id:'k16',topic:'klieme',src:'kursus',q:`Millised kaks dimensiooni on aineülesed?`,opts:[`Klassi juhtimine ja õppijate toetamine`,`Kognitiivne aktiveerimine ja klassi juhtimine`,`Õppijate toetamine ja kognitiivne aktiveerimine`,`Kõik kolm dimensiooni on võrdselt aineülesed`],a:0,why:`Kognitiivne aktiveerimine on seotud aine sisu ja mõtteviisidega.`},
+{id:'k17',topic:'klieme',src:'kursus',q:`Mida rõhutasid Thanheiser ja Melhuish (2023) klassi juhtimise kohta?`,opts:[`Oluline on ka see, kuidas rutiine rakendatakse`,`Rutiinid takistavad õpilaste iseseisvat mõtlemist`,`Vaikne klass on parima õpitulemuse eeldus`,`Reeglid peab alati kehtestama õpetaja üksi`],a:0,why:`Mitte ainult rutiinide olemasolu, vaid nende rakendamise viis.`},
+{id:'r10',topic:'praet',src:'claude',quote:`Enne uut teemat palub õpetaja joonistada, kuidas õpilased praegu fotosünteesi ette kujutavad.`,q:`Milline aladimensioon?`,opts:[`Eelteadmiste uurimine ja aktiveerimine`,`Õpilaste mõtlemise esiletoomine`,`Metakognitsiooni toetamine`,`Väljakutsuvad ülesanded ja küsimused`],a:0,why:`Selgitab välja olemasolevad arusaamad enne uut teemat.`},
+{id:'r11',topic:'praet',src:'claude',quote:`Tund koosneb õpetaja selgitusest ja kahekümnest sama tüüpi harjutusest.`,q:`Milline aladimensioon?`,opts:[`Piirdumine valmisteadmiste ja etteantud võtete harjutamisega`,`Väljakutsuvad ülesanded ja küsimused`,`Arutlev ja koostöiselt teadmisi kujundav õppimine`,`Õpilaste mõtlemise esiletoomine`],a:0,why:`Negatiivne indikaator: iseseisvaks mõtlemiseks jääb vähe võimalusi.`},
+{id:'r12',topic:'praet',src:'claude',quote:`Õpetaja kogub klassi eri lahendused tahvlile ja palub autoritel selgitada, kuidas nad selleni jõudsid.`,q:`Milline aladimensioon?`,opts:[`Õpilaste mõtlemise esiletoomine`,`Piirdumine valmisteadmiste ja etteantud võtete harjutamisega`,`Eelteadmiste uurimine ja aktiveerimine`,`Metakognitsiooni toetamine`],a:0,why:`Õpetaja uurib lahenduskäike ja nende taga olevaid arusaamu.`},
+{id:'r13',topic:'praet',src:'kursus',q:`Milline aladimensioon on negatiivne indikaator?`,opts:[`Piirdumine valmisteadmiste ja etteantud võtete harjutamisega`,`Sokraatiline õpetamine`,`Arutlev ja koostöiselt teadmisi kujundav õppimine`,`Metakognitsiooni toetamine`],a:0,why:`Mida rohkem seda tunnis on, seda vähem on kognitiivset aktiveerimist.`},
+{id:'r14',topic:'praet',src:'kursus',q:`Mida tähendab õpitava mõiste tuum?`,opts:[`Arusaamad ja seosed, ilma milleta mõistet ei saa mõista`,`Kõik faktid, mis teema kohta õpikus kirjas on`,`Teema kõige keerulisem ülesanne, mida tehakse lõpus`,`Osa teemast, mis tuleb kindlasti kontrolltöösse`],a:0,why:`Esimene soovitus: tee endale selgeks mõiste tegelik tuum ja idee.`},
+{id:'s6',topic:'praet',src:'claude',quote:`„Mis juhtuks, kui nimetaja oleks null?“`,q:`Mis tüüpi küsimus?`,choices:SMO,a:0,why:`Uurib idee piire ja järeldusi.`},
+{id:'s7',topic:'praet',src:'claude',quote:`„Mis aitas sul täna kõige rohkem aru saada?“`,q:`Mis tüüpi küsimus?`,choices:SMO,a:1,why:`Suunab hindama oma õppimisviisi.`},
+{id:'s8',topic:'praet',src:'claude',quote:`„Kas su järeldus kehtib ka siis, kui andmeid on kaks korda rohkem?“`,q:`Mis tüüpi küsimus?`,choices:SMO,a:0,why:`Uurib väite kehtivust.`},
+{id:'s9',topic:'praet',src:'claude',quote:`„Kuidas sa kontrollisid, et su lahendus on õige?“`,q:`Mis tüüpi küsimus?`,choices:SMO,a:1,why:`Küsib õppija enda kontrollistrateegia kohta.`},
+{id:'i14',topic:'icap',src:'claude',quote:`Õpilane loeb teksti vaikselt läbi.`,q:`Milline ICAP tase?`,choices:ICO,a:0,why:`Info vastuvõtmine. Nähtava käitumise põhjal ei tea, kas ta mõtestab sügavamalt.`},
+{id:'i15',topic:'icap',src:'kursus',quote:`Teeb mõistekaardi, kopeerides mõisted ja seosed õpikust.`,q:`Milline ICAP tase?`,choices:ICO,a:1,why:`Kopeerimine on aktiivne, ka mõistekaardi kujul.`},
+{id:'i16',topic:'icap',src:'kursus',quote:`Teeb mõistekaardi ja lisab oma sõnadega seosed mõistete vahel.`,q:`Milline ICAP tase?`,choices:ICO,a:2,why:`Oma seosed ja põhjendused teevad selle konstruktiivseks.`},
+{id:'i17',topic:'icap',src:'claude',quote:`Paarilised vaidlevad, küsivad teineteiselt põhjendusi ja jõuavad lahenduseni, mida kumbki üksi ei pakkunud.`,q:`Milline ICAP tase?`,choices:ICO,a:3,why:`Ideed arenevad vastastikku edasi.`},
+{id:'i18',topic:'icap',src:'kursus',quote:`Kerib videot tagasi, et lõiku uuesti vaadata.`,q:`Milline ICAP tase?`,choices:ICO,a:1,why:`Manipuleerib materjaliga, uut ei loo.`},
+{id:'i19',topic:'icap',src:'kursus',quote:`Vestleb AI-ga, küsib täpsustusi ja arendab saadud ideed oma näitega edasi.`,q:`Milline ICAP tase?`,choices:ICO,a:3,why:`Konspekti järgi võib AI-vestlus olla interaktiivne, kui mõtteid arendatakse sisuliselt edasi.`},
+{id:'i20',topic:'icap',src:'kursus',q:`Rühm esitab kordamööda oma osa ega reageeri teiste osadele. Mis on õige?`,opts:[`Ei ole interaktiivne, sest ideid ei arendata vastastikku`,`Interaktiivne, sest töö tehti rühmas ja esitati ühiselt`,`Passiivne kõigile, sest igaüks kuulab teiste ettekandeid`,`Konstruktiivne kõigile, sest igaüks lõi oma osa ise`],a:0,why:`Kordamööda ettekanded ei tee rühmatööd interaktiivseks.`},
+{id:'i21',topic:'icap',src:'kursus',q:`Milline protsess iseloomustab aktiivset taset?`,opts:[`Salvestamine`,`Lõimimine`,`Tuletamine`,`Koosloome`],a:1,why:`P salvestamine, A lõimimine eelteadmistega, C tuletamine, I koosloome.`},
+{id:'i22',topic:'icap',src:'kursus',q:`Milline protsess iseloomustab interaktiivset taset?`,opts:[`Salvestamine`,`Lõimimine`,`Tuletamine`,`Koosloome`],a:3,why:`Koos luuakse midagi, mida kumbki üksi ei sõnastanud.`},
+{id:'t8',topic:'toetus',src:'kursus',quote:`„Ma ei ole kindel, uurime koos.“`,q:`Mida see õpetaja lause toetab?`,opts:[`Positiivset veakultuuri ja usalduslikku suhet`,`Klassi juhtimist ja kokkulepitud tunni rutiine`,`Sooritus- ja võistlusmotivatsiooni klassis`,`Valmisteadmiste kiiret edasiandmist õpilastele`],a:0,why:`Õpetaja näitab, et teadmatus ja eksimine on osa õppimisest.`},
+{id:'t9',topic:'toetus',src:'claude',quote:`Õpetaja korraldab võistluse, kes lahendab kõige kiiremini, ja kuulutab parimad klassi ees välja.`,q:`Millist vajadust see kõige rohkem ohustab?`,opts:[`Autonoomiat, sest tekib liigne sooritus- ja võistlussurve`,`Klassi juhtimist, sest võistlus võtab tunnist aega`,`Kompetentsust, sest ülesanded on kõigile ühesugused`,`Seotust, sest õpilased töötavad üksi, mitte paaris`],a:0,why:`Konspekti järgi toetab autonoomiat liigse sooritus- ja võistlussurve vältimine.`},
+{id:'t10',topic:'toetus',src:'claude',quote:`Õpilane saab ülesande, mis on tema tasemele sobivalt raske, ja vihje, kui jääb hätta.`,q:`Millist vajadust see toetab?`,choices:[`Kompetentsus`,`Autonoomia`,`Seotus`],a:0,why:`Diferentseerimine ja tugi.`},
+{id:'t11',topic:'toetus',src:'claude',quote:`Õpetaja näitab päris näitega, miks teema on õpilase tulevases töös vajalik.`,q:`Millist vajadust see toetab?`,choices:[`Kompetentsus`,`Autonoomia`,`Seotus`],a:1,why:`Õpitava huvitavus ja tähenduslikkus.`},
+{id:'t12',topic:'toetus',src:'claude',quote:`Õpilased teavad, et keegi ei naera, kui klassikaaslane eksib.`,q:`Millist vajadust see toetab?`,choices:[`Kompetentsus`,`Autonoomia`,`Seotus`],a:2,why:`Lugupidavad suhted õpilaste vahel.`},
+{id:'t13',topic:'toetus',src:'kursus',q:`Miks on toetav klassikliima kognitiivse aktiveerimise jaoks oluline?`,opts:[`Ilma selleta kardab õpilane eksida ja jätab oma mõtted enda teada`,`Toetav kliima asendab mõtlemist nõudvaid ülesandeid ja küsimusi`,`Toetav kliima tähendab, et ülesanded on kõigile jõukohaselt lihtsad`,`Kliima mõjutab ainult käitumist klassis, mitte õppimist ennast`],a:0,why:`Mõtete jagamine on riskantne, nii et mõtlemine saab nähtavaks ainult turvalises kliimas.`},
+{id:'l8',topic:'srl',src:'claude',quote:`Õppija vaatab enne tööd hindamiskriteeriumid üle ja planeerib, mida esimesena teeb.`,q:`Milline SRL-i faas?`,choices:[`Ettevalmistav`,`Sooritus`,`Refleksioon`],a:0,why:`Eesmärgi ja tulemusega tutvumine ning planeerimine.`},
+{id:'l9',topic:'srl',src:'claude',quote:`Töö ajal märkab õppija, et tema strateegia ei toimi, ja proovib teist.`,q:`Milline SRL-i faas?`,choices:[`Ettevalmistav`,`Sooritus`,`Refleksioon`],a:1,why:`Strateegia jälgimine ja kohandamine töö käigus.`},
+{id:'l10',topic:'srl',src:'claude',quote:`Pärast tööd kirjutab õppija, milline meetod aitas kõige rohkem ja mis oli raske.`,q:`Milline SRL-i faas?`,choices:[`Ettevalmistav`,`Sooritus`,`Refleksioon`],a:2,why:`Protsessi ja enesetunde hindamine.`},
+{id:'l11',topic:'srl',src:'kursus',quote:`Enne kontrolltööd märkab õppija oma ärevust ja teeb paar rahulikku hingetõmmet.`,q:`Milline SRL-i faas?`,choices:[`Ettevalmistav`,`Sooritus`,`Refleksioon`],a:0,why:`Emotsioonidega tegelemine on ettevalmistava faasi komponent C.`},
+{id:'l12',topic:'srl',src:'kursus',q:`Mis peab ettevalmistavas faasis õppija jaoks täidetud olema?`,opts:[`Ta teab struktuuri, eesmärki ja oodatavat tulemust ning tunneb, et juhib protsessi`,`Ta on ülesande lõpetanud ja hindab, kas õpitulemus on tegelikult saavutatud`,`Ta on saanud hinde kätte ja teab, millised vead ta kontrolltöös tegi`,`Õpetaja on andnud talle kõik õiged vastused juba enne töö algust`],a:0,why:`Ettevalmistav faas suunab planeerima.`},
 // Lahterdamised
 {id:'x1',type:'sort',topic:'icap',src:'kursus',q:`Lahterda tegevused ICAP tasemetele.`,bins:ICO,cards:[[`Kuulab selgitust ilma küsimusteta`,0],[`Vaatab õpetaja demonstratsiooni ise midagi tegemata`,0],[`Vastab faktiküsimustele, meenutades materjali`,1],[`Kopeerib õpetaja eeskuju ülesande lahendamisel`,1],[`Loob seoseid, järeldusi või võrdlusi`,2],[`Põhjendab, miks nähtus toimib`,2],[`Paar arutab, võrdleb ja täiendab lahendusi`,3],[`Koos tekib idee, mida kumbki üksi ei sõnastanud`,3]],why:`Õppejõu lahterdamisülesanne.`},
 {id:'x2',type:'sort',topic:'icap',src:'kursus',q:`Veebiallika usaldusväärsuse õppimine: lahterda ICAP tasemetele.`,bins:ICO,cards:[[`Vaatab videot allikate usaldusväärsusest`,0],[`Märgib tekstis usaldusväärsuse tunnused`,1],[`Võrdleb kahte allikat ja põhjendab hinnangut`,2],[`Paarilised küsivad teineteiselt põhjendusi ja kujundavad ühise hinnangu`,3]],why:`Konspekti näide.`},
@@ -522,30 +611,30 @@ models:[{label:`Õppejõu vastused`,M:`Kaheksa paari kaheteistkümnest on esitan
 `Tund läks minu meelest päris hästi. Õpilased töötasid aktiivselt, töölehed olid enamasti õigesti täidetud ja plakatid tulid ilusad. Järgmises tunnis tegin tunnikontrolli. Üllatuseks oli väga palju vigu ja kehvad hinded. Nad nimetasid küll organisme, kuid ei suutnud selgitada, kuidas need üksteisest sõltuvad. Võib-olla peaksin teemat põhjalikumalt selgitama või rohkem ülesandeid andma? Mida sina soovitaksid?“`],
 steps:[
 {k:'M',q:`Milline õpetaja kirjeldatud asjaolu on õppimise toetamise seisukohalt kõige olulisem?`,opts:[
-{t:`Õpetaja kasutas animatsiooni, paberil töölehte ja rühmatööd, kuid ei kasutanud ühtegi interaktiivset digikeskkonda.`,why:`Faktiline, aga õppimise seisukohalt vähem oluline: digikeskkonna puudumine ei ole probleem iseenesest.`},
-{t:`Õpilased töötasid paberil töölehega ja enamus sai selle valmis, vastuseid kontrolliti suuliselt, tunnikontrollis tegid nad palju vigu ega suutnud põhjendada, kuidas organismid üksteisest sõltuvad.`,ok:1,why:`Toob välja vastuolu: tunnis said vastused valmis, aga seoseid põhjendada ei osatud.`},
-{t:`Õpilased koostasid rühmades plakateid, alustasid tunnis ja lõpetasid kodus.`,why:`Fakt, kuid ei puuduta seda, mis õppimises valesti läks.`},
-{t:`Õpetaja kontrollis vastuseid koos õpilastega ja kavatseb kaaluda täiendavaid selgitusi ja harjutusi.`,why:`Teine pool on juba õpetaja kavandatud otsus.`}]},
+{t:`Õpetaja kasutas tunnis animatsiooni, paberil töölehte ja rühmatööd, kuid õppetegevuste läbiviimisel ei kasutatud ühtegi interaktiivset digikeskkonda.`,why:`Faktiline, aga õppimise seisukohalt vähem oluline: digikeskkonna puudumine ei ole probleem iseenesest.`},
+{t:`Õpilased töötasid tunnis paberkandjal töölehega ning enamus sai selle valmis, suuliselt koos kontrolliti vastuseid, tunnikontrollis tegid õpilased palju vigu ning ei suutnud põhjendada, kuidas toiduahela organismid üksteisest sõltuvad.`,ok:1,why:`Toob välja vastuolu: tunnis said vastused valmis, aga seoseid põhjendada ei osatud.`},
+{t:`Õpilased koostasid rühmades toiduahelate teemal plakateid, alustasid nende tegemist tunnis ning lõpetasid tööd iseseisvalt kodus.`,why:`Fakt, kuid ei puuduta seda, mis õppimises valesti läks.`},
+{t:`Õpetaja kontrollis koos õpilastega töölehe vastuseid ning kavatseb pärast tunnikontrolli kaaluda täiendavate selgituste ja harjutusülesannete kasutamist.`,why:`Teine pool on juba õpetaja kavandatud otsus.`}]},
 {k:'T',q:`Kuidas võiks märgatut kognitiivse aktiveerimise põhimõtete põhjal tõlgendada?`,opts:[
-{t:`Aktiivne osalemine ja õiged töölehed näitavad, et tegevused olid sobivad. Tulemused võivad olla seotud ebapiisava ettevalmistusega kodus.`,why:`Võtab välise aktiivsuse õppimise tõendina ja paneb põhjuse õpilastele.`},
-{t:`Õpilastel jäi puudu iseseisvast harjutamisest. Rohkem samalaadseid ülesandeid aitaks kinnistada.`,why:`Rohkem samu ülesandeid on negatiivne indikaator: piirdumine etteantud võtete harjutamisega.`},
-{t:`Animatsioon ja rühmatöö ei toetanud teadmiste omandamist. Tuleks kasutada rohkem otsest õpetamist.`,why:`Andmed ei näita, et just need meetodid oleksid põhjus, ja lahendus suurendaks passiivsust.`},
-{t:`Õpetaja nägi, et ülesanded täideti ja vastused saadi, kuid tal puudus ülevaade, kuidas õpilased seoseid mõistavad ja põhjendavad. Pole selge, kuivõrd tegevused keskendusid põhiidee mõistmisele.`,ok:1,why:`Lünkade täitmine ja etteantud ahelad ei nõudnud seoste põhjendamist. Mõtlemist ei toodud esile.`}]},
+{t:`Õpilaste aktiivne osalemine ja õigesti täidetud töölehed näitavad, et õppetegevused olid sobivad. Tunnikontrolli tulemused võivad olla seotud õpilaste ebapiisava ettevalmistusega kodus.`,why:`Võtab välise aktiivsuse õppimise tõendina ja paneb põhjuse õpilastele.`},
+{t:`Õpetaja kasutas mitmekesiseid õppetegevusi, kuid õpilastel jäi tõenäoliselt puudu iseseisvast harjutamisest. Rohkem samalaadseid ülesandeid aitaks teadmisi kinnistada.`,why:`Rohkem samu ülesandeid on negatiivne indikaator: piirdumine etteantud võtete harjutamisega.`},
+{t:`Õpilaste raskused tunnikontrollis näitavad, et animatsioon ja rühmatöö ei toetanud piisavalt teadmiste omandamist. Õpetajal tuleks kasutada rohkem otsest õpetamist.`,why:`Andmed ei näita, et just need meetodid oleksid põhjus, ja lahendus suurendaks passiivsust.`},
+{t:`Õpetaja nägi, et õpilased täitsid ülesandeid ja jõudsid vastusteni, kuid tal puudus tunni jooksul piisav ülevaade sellest, kuidas nad seoseid mõistavad ja põhjendavad. Samuti ei ole selge, kuivõrd õppetegevused keskendusid õpitava põhiidee mõistmisele.`,ok:1,why:`Lünkade täitmine ja etteantud ahelad ei nõudnud seoste põhjendamist. Mõtlemist ei toodud esile.`}]},
 {k:'O',q:`Millist lahendust võiks haridustehnoloog soovitada?`,opts:[
-{t:`Viia tööleht Amplifysse ja kasutada automaatkontrolliga küsimusi, et näha iga õpilase õigete vastuste arvu.`,why:`Sama tööleht digitaalselt. Loendab õigeid vastuseid, aga mõtlemist ei too esile.`},
-{t:`Lisada põhjalik animatsioon ja rohkem eri raskusastmega ülesandeid, kontrollida teadmisi tunni lõpus.`,why:`Rohkem sisendit ja harjutamist, põhjendamist endiselt pole.`},
-{t:`Kasutada tunni lõpus Amplifys kokkuvõtvat testi ja kavandada selle põhjal järgmine tund.`,why:`Tagasiside tuleb alles lõpus, tunni sees ei saa arusaamu täpsustada.`},
-{t:`Määratleda esmalt keskne idee ning koostada Amplifys valik- ja avatud küsimusi, mis toovad mõttekäigud esile. Jälgida vastuseid juba tunni jooksul ja täpsustada arusaamu.`,ok:1,why:`Lähtub tuumast, toob mõtlemise nähtavale ja võimaldab sekkuda kohe.`}]}],
+{t:`Viia olemasolev tööleht Learning Amplify keskkonda ja kasutada automaatkontrolliga küsimusi. Nii näeb õpetaja iga õpilase õigete vastuste arvu ning saab kiiresti teada, kes vajab rohkem harjutamist kodus.`,why:`Sama tööleht digitaalselt. Loendab õigeid vastuseid, aga mõtlemist ei too esile.`},
+{t:`Lisada tunni algusesse põhjalik animatsioon ja koostada töölehele rohkem eri raskusastmega ülesandeid. Nii saavad õpilased õpitavat mitmel viisil harjutada ning õpetaja saab nende teadmisi tunni lõpus kontrollida.`,why:`Rohkem sisendit ja harjutamist, põhjendamist endiselt pole.`},
+{t:`Kasutada Learning Amplify keskkonnas tunni lõpus lühikest kokkuvõtvat testi, et kontrollida, millised mõisted ja seosed on õpilastele selgeks saanud. Tulemuste põhjal saab õpetaja kavandada järgmise tunni tegevused.`,why:`Tagasiside tuleb alles lõpus, tunni sees ei saa arusaamu täpsustada.`},
+{t:`Määratleda esmalt õpitava keskne idee ning koostada Learning Amplify keskkonnas valikvastustega ja avatud küsimusi, mis aitavad õpilaste mõttekäike esile tuua. Jälgida vastuseid juba tunni jooksul, et vajaduse korral arusaamu täpsustada.`,ok:1,why:`Lähtub tuumast, toob mõtlemise nähtavale ja võimaldab sekkuda kohe.`}]}],
 models:[{label:`Õppejõu õiged variandid`,M:`Töölehed said valmis ja vastuseid kontrolliti suuliselt, kuid tunnikontrollis tehti palju vigu ja ei suudetud põhjendada, kuidas organismid üksteisest sõltuvad.`,T:`Õpetajal puudus tunni jooksul ülevaade, kuidas õpilased seoseid mõistavad ja põhjendavad. Pole selge, kuivõrd tegevused keskendusid põhiidee mõistmisele.`,O:`Määratleda keskne idee ja koostada küsimused, mis toovad mõttekäigud esile. Jälgida vastuseid juba tunni jooksul.`}],
-note:`Õiged vastused on õppejõu omad. Valede variantide selgitused koostas Claude.`},
+note:`Küsimused ja vastusevariandid on õppejõu omad. Valede variantide selgitused koostas Claude.`},
 
-{id:'c3',title:`Kolmnurga pindala`,src:'mix',topics:`ICAP`,openOnly:1,text:[
+{id:'c3',tkey:'icap',title:`Kolmnurga pindala`,src:'mix',topics:`ICAP`,openOnly:1,text:[
 `Õpetaja alustab matemaatikatundi uue teemaga: kolmnurga pindala valem. Ta kirjutab tahvlile tunni teema ja joonistab kolmnurga, lisades tähistused (kõrgus, alus). Seejärel kirjutab ta valemi ja selgitab selles olevate suuruste tähendust. Selgituse käigus viitab ta, et valemit on võimalik tõestada ristküliku pindala kaudu. Seejärel lahendab ta tahvlil paar näidisülesannet, kirjeldades samm-sammult, kuidas valemit rakendada.`,
 `Pärast seda palub ta õpilastel iseseisvalt lahendada sarnaseid ülesandeid õpikust. Osa õpilasi ei alusta, nad vaatavad ringi või vestlevad. Mõned hakkavad tahvli pealt lahendusi maha kirjutama, ilma et prooviksid ise mõelda. Mõned lahendavad, kuid tunduvad ebakindlad. Õpetaja jalutab ringi ja vastab üksikutele küsimustele, kuid enamasti ei sekku, kui õpilased maha kirjutavad.`],
 models:[{label:`Näidisvastus`,M:`Õpetaja kirjutas teema, joonistas kolmnurga, kirjutas valemi, viitas tõestusele ristküliku kaudu ja lahendas näidisülesanded samm-sammult. Iseseisva töö ajal osa õpilasi ei alustanud, osa kirjutas tahvlilt maha, osa lahendas ebakindlalt. Õpetaja vastas üksikutele küsimustele ega sekkunud mahakirjutamisse.`,T:`Õppejõu vastus: tegevused lõid peamiselt võimalusi passiivseks ja aktiivseks kaasatuseks. Õpilased kuulasid, jälgisid näidiseid ja rakendasid sama võtet sarnastes ülesannetes. Vähe oli tegevusi, mis suunanuks seoseid looma, lahendusi põhjendama või ideid vastastikku arendama, seega olid konstruktiivse ja interaktiivse kaasatuse võimalused piiratud. Samas ei saa välise käitumise põhjal kindlalt järeldada, kuidas iga õppija mõtles: mõni võis ka kuulates seoseid luua.`,O:`Õpetaja alustab ristküliku pindalast, mida õpilased teavad, ja laseb neil ise kolmnurga valemi tuletada (konstruktiivne). Seejärel võrdlevad paarid oma tuletusi ja põhjendavad, miks valem töötab (interaktiivne). Näidislahendused näitab ta alles pärast seda.`}],
 note:`Tõlgendus on õppejõu näidisvastus. Märkamise ja otsuse koostas Claude.`},
 
-{id:'c4',title:`Anneli Padleti rühmatöö`,src:'kursus',topics:`SRL`,openOnly:1,text:[
+{id:'c4',tkey:'srl',title:`Anneli Padleti rühmatöö`,src:'kursus',topics:`SRL`,openOnly:1,text:[
 `Anneli eeldab, et õpilased on Padleti kasutamisega tuttavad ning saavad ülesandega iseseisvalt hakkama. Ta selgitab: „Täna teete rühmakaardi Padletis teemal „Energia ja selle allikad“. Arutage rühmas, kuidas seda ülesannet lahendate, ja lisage infot, pilte või linke.“`,
 `Ta jagab klassi neljastesse gruppidesse ja lisab lingi. Juba 10 minuti pärast kostab küsimusi: „Mida me täpselt tegema peame?“ „Kas võib lihtsalt pildid panna?“ „Kas selle eest saab hinde?“`,
 `Üks grupp hakkab kohe internetist pilte koguma ja postitab need Padletisse ilma allikate või selgitusteta. Teine grupp vaidleb pikalt, kas võtta „tuuleenergia“ või „päikeseenergia“, ning aega kulub vaidlusele. Kolmas grupp ei tee eriti midagi: üks joonistab vihikusse, teised ootavad, et keegi ütleks, mida teha.`,
@@ -561,20 +650,20 @@ models:[
 `Järgmises tunnis palub õpetaja muuta tsüklit nii, et see loeks tagurpidi kümnest üheni. 18 õpilasest 11 ei saa sellega hakkama ja mitu küsivad: „Kus see eelmine kood oli?“`],
 steps:[
 {k:'M',q:`Mida on õppimise seisukohalt oluline märgata?`,opts:[
-{t:`Õpilased ei pööranud eelmises tunnis piisavalt tähelepanu.`,why:`Hinnang, mitte nähtav fakt.`},
+{t:`Õpilased ei pööranud eelmises tunnis koodi ümber kirjutades piisavalt tähelepanu sellele, mida iga rida teeb, ja seepärast ei mäleta nad seda.`,why:`Hinnang, mitte nähtav fakt.`},
 {t:`Eelmises tunnis kirjutasid kõik õpetaja koodi ümber ja see töötas. Järgmises tunnis ei saanud 11 õpilast 18-st tsüklit muuta ja mitu otsisid eelmist koodi.`,ok:1,why:`Faktid koos numbritega, vastuolu on näha ilma tõlgenduseta.`},
-{t:`Õpilased ei mõista, kuidas tsükkel töötab.`,why:`Tõlgendus nende arusaamise kohta.`},
-{t:`Õpetaja peaks laskma õpilastel koodi ise muuta.`,why:`Otsus.`}]},
+{t:`Õpilased ei mõista veel, kuidas for-tsükkel ja range-funktsioon töötavad, ning vajavad enne järgmist teemat lisaselgitust.`,why:`Tõlgendus nende arusaamise kohta.`},
+{t:`Õpetaja peaks järgmisel korral laskma õpilastel koodi ise muuta, mitte seda projektorilt rida-realt ette kirjutama.`,why:`Otsus.`}]},
 {k:'T',q:`Kuidas märgatut tõlgendada?`,opts:[
-{t:`Õpilased olid passiivsed, sest nad ainult kirjutasid koodi.`,why:`Koodi ümberkirjutamine on aktiivne, mitte passiivne.`},
-{t:`Koodi ümberkirjutamine on ICAP-i järgi aktiivne: õpilased ei pidanud selgitama ega midagi uut looma, mistõttu arusaam tsükli toimimisest võis jääda pinnapealseks. Eelmise koodi otsimine viitab, et lahendust ei tuletatud ise.`,ok:1,why:`Õige tase ja seos õppimisega. Ütleb „võis“, mitte „kindlasti“.`},
-{t:`Ülesanne oli liiga raske, tagurpidi lugemine pole algajale jõukohane.`,why:`Andmed seda ei toeta.`},
-{t:`Õpilased ei harjutanud kodus.`,why:`Paneb põhjuse õpilastele ilma aluseta.`}]},
+{t:`Õpilased olid ICAP-i järgi passiivsel tasemel, sest nad ainult kirjutasid õpetaja koodi ümber ega teinud midagi muud. Passiivne kaasatus ei võimalda tsükli toimimist mõista.`,why:`Koodi ümberkirjutamine on aktiivne, mitte passiivne.`},
+{t:`Koodi ümberkirjutamine on ICAP-i järgi aktiivne tegevus. Õpilased ei pidanud ise selgitama ega midagi looma, mistõttu arusaam tsükli toimimisest võis jääda pinnapealseks.`,ok:1,why:`Õige tase ja seos õppimisega. Ütleb „võis“, mitte „kindlasti“.`},
+{t:`Tagurpidi lugemise ülesanne oli algajatele liiga raske, sest see nõuab negatiivse sammu tundmist. Kognitiivne koormus ületas õpilaste võimekuse ja nad ei saanud hakkama.`,why:`Andmed seda ei toeta.`},
+{t:`Õpilased ei harjutanud tsükli kirjutamist kodus iseseisvalt, mistõttu teadmised ei kinnistunud. Eelmise tunni kood ununes, sest seda ei korratud enne järgmist tundi.`,why:`Paneb põhjuse õpilastele ilma aluseta.`}]},
 {k:'O',q:`Milline otsus toetaks kognitiivset kaasatust kõige paremini?`,opts:[
-{t:`Õpetaja näitab ka tagurpidi lugemise projektoril ette.`,why:`Jääb passiivseks ja aktiivseks.`},
-{t:`Õpetaja annab rohkem samasuguseid ülesandeid koju.`,why:`Piirdumine etteantud võtete harjutamisega.`},
+{t:`Õpetaja näitab tagurpidi lugemise samm-sammult projektoril ette ja selgitab iga rida, et õpilased saaksid selle täpselt üle võtta.`,why:`Jääb passiivseks ja aktiivseks.`},
+{t:`Õpetaja annab koju kümme sarnast tsükliülesannet, et õpilased harjutaksid koodi kirjutamist seni, kuni see kinnistub.`,why:`Piirdumine etteantud võtete harjutamisega.`},
 {t:`Enne käivitamist ennustavad õpilased, mida kood teeb, muudavad seda ise ja selgitavad paaris, miks muudatus töötab.`,ok:1,why:`Konstruktiivne (ennustus, põhjendus) ja interaktiivne (paaris selgitamine).`},
-{t:`Õpetaja rõhutab, et tuleb tähelepanelikum olla.`,why:`Üldine üleskutse, ei loo võimalusi mõtlemiseks.`}]}],
+{t:`Õpetaja rõhutab, et koodi ümber kirjutades tuleb olla tähelepanelikum ja iga rida endale enne käivitamist selgeks teha.`,why:`Üldine üleskutse, ei loo võimalusi mõtlemiseks.`}]}],
 models:[{label:`Näidisvastus`,M:`Eelmises tunnis kirjutasid kõik õpetaja koodi ümber ja see töötas. Järgmises tunnis ei saanud 11 õpilast 18-st tsüklit tagurpidi lugema muuta ja mitu otsisid eelmist koodi.`,T:`Ümberkirjutamine on ICAP-i järgi aktiivne. Õpilased ei pidanud selgitama ega looma, seega võis arusaam jääda pinnapealseks. Kognitiivse aktiveerimise järgi piirdus tegevus etteantud võtte kordamisega.`,O:`Õpilased ennustavad enne käivitamist koodi väljundit, muudavad koodi ise ja selgitavad paaris, miks muudatus töötab.`}]},
 
 {id:'c6',tkey:'toetus',title:`„Ei, vale. Kes teab?“`,src:'claude',topics:`Õppijate toetamine`,text:[
@@ -582,20 +671,20 @@ models:[{label:`Näidisvastus`,M:`Eelmises tunnis kirjutasid kõik õpetaja kood
 `Ülejäänud tunni jooksul ei tõsta keegi kätt, kuigi õpetaja küsib veel neli küsimust. Anonüümses tagasisides kirjutavad kaks õpilast: „Ei taha klassi ees valesti öelda.“`],
 steps:[
 {k:'M',q:`Mida on õppimise seisukohalt oluline märgata?`,opts:[
-{t:`Klass on täna laisk.`,why:`Hinnang.`},
-{t:`Õpilased kardavad õpetajat.`,why:`Tõlgendus, mis läheb kaugemale, kui andmed lubavad.`},
-{t:`Pärast seda, kui õpetaja nimetas Mati vastuse valeks ja ütles õige vastuse ise, ei tõstnud keegi neljale järgmisele küsimusele kätt. Kaks õpilast kirjutasid, et ei taha klassi ees valesti öelda.`,ok:1,why:`Järjestus ja tsitaat, ilma põhjuseta.`},
-{t:`Õpetaja peaks vigu teisiti käsitlema.`,why:`Otsus.`}]},
+{t:`Klass oli täna laisk ja passiivne, sest pärast esimest küsimust ei viitsinud enam keegi õpetaja küsimustele vastata ega kaasa mõelda.`,why:`Hinnang.`},
+{t:`Õpilased kardavad õpetajat, sest ta on klassi ees range, ja seepärast ei julge nad pärast Mati vale vastust enam kätt tõsta.`,why:`Tõlgendus, mis läheb kaugemale, kui andmed lubavad.`},
+{t:`Pärast Mati vastuse valeks nimetamist ei tõstnud keegi neljale järgmisele küsimusele kätt ja kaks õpilast kirjutasid, et ei taha klassi ees valesti öelda.`,ok:1,why:`Järjestus ja tsitaat, ilma põhjuseta.`},
+{t:`Õpetaja peaks vigu klassi ees teisiti käsitlema ja küsima edaspidi vastuseid pärast paarisarutelu, mitte üksikult klassi ees.`,why:`Otsus.`}]},
 {k:'T',q:`Kuidas märgatut tõlgendada?`,opts:[
-{t:`Õpilased ei tea vastuseid, sest pole kodus õppinud.`,why:`Alus puudub. Tagasiside viitab hoopis hirmule eksida.`},
-{t:`Vea avalik tagasilükkamine võis kujundada negatiivset veakultuuri (Käfer jt, 2019): õpilased väldivad avalikke vigu, kartes negatiivset hinnangut. Nii jääb nende mõtlemine nähtamatuks ja kannatab kompetentsus- ja seotusvajadus.`,ok:1,why:`Seob teooriaga ja ütleb, mis tagajärg on õppimisele.`},
-{t:`Küsimused olid liiga lihtsad.`,why:`Andmed seda ei näita.`},
-{t:`Mati vale vastus näitab, et ta ei sobi informaatikasse.`,why:`Hinnang õpilasele.`}]},
+{t:`Õpilased ei tea muutuja ja konstandi vahet, sest nad pole eelmise tunni materjali kodus läbi töötanud. Seetõttu on kompetentsusvajadus rahuldamata ja nad ei suuda vastata.`,why:`Alus puudub. Tagasiside viitab hoopis hirmule eksida.`},
+{t:`Vea avalik tagasilükkamine võis luua negatiivse veakultuuri, kus õpilased väldivad avalikke vigu. Nii jääb nende mõtlemine nähtamatuks ja kannatab seotusvajadus.`,ok:1,why:`Seob teooriaga ja ütleb, mis tagajärg on õppimisele.`},
+{t:`Õpetaja küsimused olid liiga lihtsad ja ühe õige vastusega, mistõttu õpilased ei pidanud neid vastamist väärivaks. Kognitiivset aktiveerimist ei toimunud ja huvi kadus.`,why:`Andmed seda ei näita.`},
+{t:`Mati vale vastus näitab, et tal puuduvad informaatika eelteadmised. Teised nägid seda ja otsustasid, et ka nende teadmised on ebapiisavad, mis vähendas nende enesetõhusust.`,why:`Hinnang õpilasele.`}]},
 {k:'O',q:`Mida õpetaja võiks teha?`,opts:[
-{t:`Hinnata edaspidi vastuseid punktidega, et motiveerida.`,why:`Suurendab soorituse survet, mis kahjustab autonoomiat.`},
-{t:`Küsida edaspidi ainult tugevamatelt õpilastelt.`,why:`Vähendab kaasatust veelgi.`},
+{t:`Õpetaja hakkab vastuseid punktidega hindama ja kuulutab tunni lõpus välja, kes kogus kõige rohkem punkte, et õpilasi vastama motiveerida.`,why:`Suurendab soorituse survet, mis kahjustab autonoomiat.`},
+{t:`Õpetaja küsib edaspidi ainult neilt õpilastelt, kes on teema juba hästi omandanud, et klassi ees kõlaksid ainult õiged vastused.`,why:`Vähendab kaasatust veelgi.`},
 {t:`Teha vea uurimise objektiks („Huvitav mõte, mis selleni viis?“), tunnustada mõtlemist ja lasta enne üldist vastamist pinginaabriga arutada.`,ok:1,why:`Positiivne veakultuur, mõtlemine muutub nähtavaks ja risk väheneb.`},
-{t:`Selgitada mõiste uuesti kõigile põhjalikumalt.`,why:`Ei lahenda seda, miks õpilased vaikivad.`}]}],
+{t:`Õpetaja selgitab muutuja ja konstandi erinevuse uuesti kogu klassile põhjalikumalt ja näidetega, et keegi enam ei eksiks.`,why:`Ei lahenda seda, miks õpilased vaikivad.`}]}],
 models:[{label:`Näidisvastus`,M:`Pärast seda, kui õpetaja nimetas Mati vastuse valeks ja ütles õige vastuse ise, ei tõstnud keegi neljale järgmisele küsimusele kätt. Kaks õpilast kirjutasid, et ei taha klassi ees valesti öelda.`,T:`Vea avalik tagasilükkamine võis kujundada negatiivset veakultuuri (Käfer jt, 2019). Õpilased väldivad avalikke vigu ja nende mõtlemine jääb nähtamatuks. Kannatab kompetentsus- ja seotusvajadus.`,O:`Õpetaja teeb vea uurimise objektiks, tunnustab mõtlemist ja laseb enne üldist vastamist paaris arutada.`}]}
 ];
 
@@ -630,17 +719,46 @@ const esc = s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 const badge = src=>`<span class="badge ${src==='claude'?'claude':'kursus'}">${SRC[src]}</span>`;
 const shuffle = a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 
+
+/* ---------- Teooria viited ---------- */
+const DEF_ANCHOR={pid:'pid-oskused',klieme:'kl-tabel',praet:'pr-tabel',icap:'ic-tabel',toetus:'to-tabel',srl:'srl-faasid'};
+const READ={p2:'pid-vead',p6:'pid-vead',p9:'pid-vead',p14:'pid-uuringud',p15:'pid-ahel',p16:'pid-vead',
+ k9:'kl-tabel',k10:'kl-juhtimine',r9:'pr-aine',s1:'pr-sokr-more',s2:'pr-sokr',s3:'pr-sokr',s4:'pr-sokr-more',s5:'pr-sokr-more',r1:'pr-sokr-more',
+ i7:'ic-vead',i8:'ic-vead',i9:'ic-vead',i13:'ic-vead',t4:'to-uuringud',t5:'to-uuringud',t6:'to-uuringud',t7:'to-tunnis',
+ l2:'srl-ettevalmistav',l5:'srl-digi',l6:'srl-digi',x3:'srl-faasid',x5:'pid-oskused'};
+const CARD_OF={pid:'pid',kl:'klieme',pr:'praet',ic:'icap',to:'toetus',srl:'srl',se:'seosed'};
+let backTo=null, pendingAnchor=null, restoreY=null, leaveY=0;
+function anchorFor(it){return READ[it.id]||DEF_ANCHOR[it.topic]}
+function goTheory(anchor,from){
+  backTo=from; leaveY=window.scrollY; pendingAnchor=anchor;
+  S.set('theory',CARD_OF[anchor.split('-')[0]]);
+  if(location.hash==='#teooria') route(); else location.hash='teooria';
+}
+function readBtn(anchor,from){
+  const b=el('button',{class:'btn',type:'button'},'Loe teooriat');
+  b.onclick=()=>goTheory(anchor,from);
+  return b;
+}
+$('#backBtn').onclick=()=>{const t=backTo;backTo=null;restoreY=leaveY;location.hash=t||'avaleht'};
+
 /* ---------- Ruuter ---------- */
 const VIEWS=['avaleht','teooria','kordamine','juhtumid'];
 function route(){
   let h=location.hash.slice(1); if(!VIEWS.includes(h)) h='avaleht';
   VIEWS.forEach(v=>{$('#v-'+v).hidden = v!==h});
   document.querySelectorAll('nav.tabs a').forEach(a=>{a.dataset.v===h?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current')});
+  if(h!=='teooria') backTo=null;
+  window.scrollTo(0,0);
   if(h==='avaleht') renderHome();
   if(h==='teooria') renderTheory();
   if(h==='kordamine' && !quiz) renderQuizStart();
   if(h==='juhtumid' && !openCase) renderCaseList();
-  window.scrollTo(0,0);
+  $('#backBar').hidden = !(h==='teooria' && backTo);
+  if(h==='teooria' && pendingAnchor){
+    const t=document.getElementById(pendingAnchor); pendingAnchor=null;
+    if(t){ if(t.tagName==='DETAILS') t.open=true; requestAnimationFrame(()=>{t.scrollIntoView({block:'start'});t.classList.add('flash');setTimeout(()=>t.classList.remove('flash'),2600)}); }
+  }
+  if(restoreY!==null && h!=='teooria'){const y=restoreY;restoreY=null;requestAnimationFrame(()=>window.scrollTo(0,y))}
 }
 window.addEventListener('hashchange',route);
 
@@ -682,7 +800,7 @@ let quiz=null;
 function renderQuizStart(){
   quiz=null;
   const a=$('#quizArea'); a.innerHTML='';
-  a.appendChild(el('div',{class:'stack'},`<div class="eyebrow">Kiirkordamine</div><h1>10 küsimust, umbes 5 minutit</h1><p class="lede">Küsimused valitakse juhuslikult, sagedamini need, kus oled varem eksinud. Iga vastuse järel näed selgitust.</p>`));
+  a.appendChild(el('div',{class:'stack'},`<div class="eyebrow">Kiirkordamine</div><h1>10 küsimust, umbes 5 minutit</h1><p class="lede">Küsimusi on kokku ${Q.length}. Iga kord tuleb 10 juhuslikku, teemad segamini ja vastusevariandid eri järjekorras. Sagedamini tulevad need, kus oled varem eksinud.</p>`));
   const r=el('div',{class:'row'});
   const all=el('button',{class:'btn primary',type:'button'},'Kõik teemad'); all.onclick=()=>startQuiz(null); r.appendChild(all);
   for(const k in TOPICS){const b=el('button',{class:'btn',type:'button'},esc(TOPICS[k].n));b.onclick=()=>startQuiz(k);r.appendChild(b)}
@@ -716,28 +834,30 @@ function renderQuestion(){
   if(it.type==='sort'){ renderSort(it,card,fb,after); }
   else if(it.choices){
     const box=el('div',{class:'choices'});
-    it.choices.forEach((c,ci)=>{
-      const b=el('button',{class:'choice',type:'button'},esc(c));
+    const ord=shuffle(it.choices.map((_,i)=>i));
+    ord.forEach(ci=>{ const c=it.choices[ci];
+      const b=el('button',{class:'choice',type:'button','data-i':ci},esc(c));
       b.onclick=()=>{
         const ok=ci===it.a; if(ok)quiz.ok++; record(it,ok);
-        box.querySelectorAll('button').forEach((x,xi)=>{x.disabled=true;if(xi===it.a)x.classList.add('right');else if(xi===ci)x.classList.add('wrong')});
+        box.querySelectorAll('button').forEach(x=>{const xi=+x.dataset.i;x.disabled=true;if(xi===it.a)x.classList.add('right');else if(xi===ci)x.classList.add('wrong')});
         fb.className='feedback '+(ok?'ok':'bad');
         fb.innerHTML=`<b>${ok?'Õige.':'Õige on: '+esc(it.choices[it.a])+'.'}</b>${esc(it.why)}`;
-        nextBtn(after);
+        after.appendChild(readBtn(anchorFor(it),'kordamine')); nextBtn(after);
       };
       box.appendChild(b);
     });
     card.appendChild(box);
   } else {
     const box=el('div',{class:'opts'});
-    it.opts.forEach((c,ci)=>{
-      const b=el('button',{class:'opt',type:'button'},`<span class="k">${'ABCD'[ci]}</span><span>${esc(c)}</span>`);
+    const ord=shuffle(it.opts.map((_,i)=>i));
+    ord.forEach((ci,pos)=>{ const c=it.opts[ci];
+      const b=el('button',{class:'opt',type:'button','data-i':ci},`<span class="k">${'ABCD'[pos]}</span><span>${esc(c)}</span>`);
       b.onclick=()=>{
         const ok=ci===it.a; if(ok)quiz.ok++; record(it,ok);
-        box.querySelectorAll('button').forEach((x,xi)=>{x.disabled=true;if(xi===it.a)x.classList.add('right');else if(xi===ci)x.classList.add('wrong');else x.classList.add('dim')});
+        box.querySelectorAll('button').forEach(x=>{const xi=+x.dataset.i;x.disabled=true;if(xi===it.a)x.classList.add('right');else if(xi===ci)x.classList.add('wrong');else x.classList.add('dim')});
         fb.className='feedback '+(ok?'ok':'bad');
-        fb.innerHTML=`<b>${ok?'Õige.':'Õige on '+'ABCD'[it.a]+'.'}</b>${esc(it.why)}`;
-        nextBtn(after);
+        fb.innerHTML=`<b>${ok?'Õige.':'Õige on '+'ABCD'[ord.indexOf(it.a)]+'.'}</b>${esc(it.why)}`;
+        after.appendChild(readBtn(anchorFor(it),'kordamine')); nextBtn(after);
       };
       box.appendChild(b);
     });
@@ -774,7 +894,7 @@ function renderSort(it,card,fb,after){
     if(ok)quiz.ok++; record(it,ok); draw();
     fb.className='feedback '+(ok?'ok':'bad');
     fb.innerHTML=`<b>${right} / ${cards.length} õigesti.</b>${esc(it.why)}`;
-    chk.remove(); nextBtn(after);
+    chk.remove(); after.appendChild(readBtn(anchorFor(it),'kordamine')); nextBtn(after);
   };
   card.appendChild(pool); card.appendChild(bins); after.appendChild(chk);
   draw();
@@ -831,12 +951,14 @@ function caseMC(c,body){
     const box=el('div',{class:'step '+s.k});
     box.innerHTML=`<div class="lbl">${STEPN[s.k]}</div><div class="qtext">${esc(s.q)}</div>`;
     const opts=el('div',{class:'opts'});
-    s.opts.forEach((o,oi)=>{
-      const b=el('button',{class:'opt',type:'button'},`<span class="k">${'ABCD'[oi]}</span><span>${esc(o.t)}<span class="why" hidden>${esc(o.why)}</span></span>`);
+    const ord=shuffle(s.opts.map((_,i)=>i));
+    ord.forEach((oi,pos)=>{ const o=s.opts[oi];
+      const b=el('button',{class:'opt',type:'button','data-i':oi},`<span class="k">${'ABCD'[pos]}</span><span>${esc(o.t)}<span class="why" hidden>${esc(o.why)}</span></span>`);
       b.onclick=()=>{
         const right=!!o.ok; if(right)ok++;
         record({id:c.id+s.k,topic:s.k==='T'?(c.tkey||'pid'):'pid'},right);
-        opts.querySelectorAll('button').forEach((x,xi)=>{x.disabled=true;x.querySelector('.why').hidden=false;if(s.opts[xi].ok)x.classList.add('right');else if(xi===oi)x.classList.add('wrong');else x.classList.add('dim')});
+        opts.querySelectorAll('button').forEach(x=>{const xi=+x.dataset.i;x.disabled=true;x.querySelector('.why').hidden=false;if(s.opts[xi].ok)x.classList.add('right');else if(xi===oi)x.classList.add('wrong');else x.classList.add('dim')});
+        const r=el('div',{class:'row'}); r.appendChild(readBtn(s.k==='T'?DEF_ANCHOR[c.tkey||'pid']:'se-retsept','juhtumid')); box.appendChild(r);
       };
       opts.appendChild(b);
     });
@@ -867,6 +989,9 @@ function caseOpen(c,body){
     c.models.forEach(m=>{
       out.appendChild(el('div',{class:'panel model'},`<h3>${esc(m.label)}</h3><div class="mm"><b>Märkamine.</b> ${esc(m.M)}</div><div class="mt"><b>Tõlgendamine.</b> ${esc(m.T)}</div><div class="mo"><b>Otsustamine.</b> ${esc(m.O)}</div>`));
     });
+    const rr=el('div',{class:'row'}); rr.appendChild((()=>{const b=readBtn('se-retsept','juhtumid');b.textContent='Loe: vastamise retsept';return b})());
+    const rt=readBtn(DEF_ANCHOR[c.tkey||'pid'],'juhtumid'); rt.textContent='Loe teooriat: '+TOPICS[c.tkey||'pid'].n; rr.appendChild(rt);
+    out.appendChild(rr);
     if(c.models.length>1) out.appendChild(el('p',{class:'hint'},'Õppejõud: sama juhtumi põhjal võib koostada teisigi analüüse, kui märkamine põhineb faktidel, tõlgendus teoorial ja otsus tõlgendusel.'));
   };
   body.appendChild(el('div',{class:'row'})).appendChild(show);
